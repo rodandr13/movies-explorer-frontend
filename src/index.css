@@ -1,2 +1,12 @@
 @import "./vendor/normalize.css";
 @import "./vendor/fonts/inner-fonts.css";
+
+.section-title {
+    margin: 0 0 70px 0;
+    padding: 0 0 23px 0;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid #000000;
+}

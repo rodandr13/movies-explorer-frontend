@@ -1,0 +1,80 @@
+.about-project {
+    box-sizing: border-box;
+    padding: 110px 70px 110px 70px;
+    margin: 0 auto;
+    max-width: 1280px;
+    min-width: 320px;
+}
+
+.about-project__title {
+    margin: 0 0 70px 0;
+    padding: 0 0 23px 0;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: -0.04em;
+    border-bottom: 1px solid #000000;
+}
+
+.about-project__list {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.information__title {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+}
+
+.information__text {
+    padding: 0;
+    margin: 26px 0 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.time-tracker {
+    display: flex;
+    margin: 110px 0 0 0;
+    padding: 0;
+    list-style-type: none;
+}
+.time-tracker__title {
+    margin: 0;
+    padding: 9px 0 9px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: center;
+
+}
+.time-tracker__title_type_backend {
+    background: #2be080;
+}
+.time-tracker__title_type_frontend {
+    background: #f2f2f2;
+}
+.time-tracker__subtitle {
+    padding: 0;
+    margin: 14px 0 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    text-align: center;
+    color: #a0a0a0;
+}
+
+.time-tracker__title_type_stages {
+    width: 25%;
+}
+
+.time-tracker__title_type_weeks {
+    width: 75%;
+}
