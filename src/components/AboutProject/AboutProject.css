@@ -1,6 +1,6 @@
 .about-project {
     box-sizing: border-box;
-    padding: 110px 70px 110px 70px;
+    padding: 111px 70px 111px 70px;
     margin: 0 auto;
     max-width: 1280px;
     min-width: 320px;
@@ -19,10 +19,13 @@
 .about-project__list {
     display: flex;
     list-style-type: none;
+    justify-content: space-between;
     margin: 0;
     padding: 0;
 }
-
+.information {
+    max-width: 550px;
+}
 .information__title {
     margin: 0;
     padding: 0;
@@ -63,7 +66,7 @@
 }
 .time-tracker__subtitle {
     padding: 0;
-    margin: 14px 0 0 0;
+    margin: 15px 0 0 0;
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
@@ -72,9 +75,9 @@
 }
 
 .time-tracker__title_type_stages {
-    width: 25%;
+    width: 20%;
 }
 
 .time-tracker__title_type_weeks {
-    width: 75%;
+    width: 80%;
 }

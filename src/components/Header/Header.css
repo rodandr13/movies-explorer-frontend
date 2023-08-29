@@ -9,10 +9,6 @@
     padding: 0 70px 0 70px;
 }
 
-.container_theme_dark {
-    background: #073042;
-}
-
-.logo {
+.logo__image {
     display: block;
 }
