@@ -10,3 +10,9 @@
     letter-spacing: -0.04em;
     border-bottom: 1px solid #000000;
 }
+
+.section-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+}
