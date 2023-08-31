@@ -1,0 +1,27 @@
+.text-field {
+    display: flex;
+    flex-direction: column;
+}
+.text-field__title {
+    margin: 10px 0 0 0;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    color: #a0a0a0;
+}
+.text-field__input {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    border: none;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 6px 0 8px 0;
+}
+.text-field__error {
+    margin: 4px 0 0 0;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 12px;
+    color: #ff3055;
+    min-height: 12px;
+}

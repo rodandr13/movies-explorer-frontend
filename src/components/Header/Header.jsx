@@ -1,13 +1,13 @@
 import React from "react";
 import './Header.css';
-import logo from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
+import Logo from '../Logo/Logo'
 
 function Header() {
     return (
         <div className="container_theme_dark">
             <header className='header'>
-                <a href="#" className='logo'><img className='logo__image' src={logo} alt=""/></a>
+                <Logo />
                 <Navigation />
             </header>
         </div>
