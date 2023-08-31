@@ -1,0 +1,30 @@
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.filter-checkbox__input {
+    appearance: none;
+    display: block;
+    position: relative;
+    border-radius: 20px;
+    width: 34px;
+    height: 14px;
+    background: #2be080;
+    cursor: pointer;
+}
+.filter-checkbox__input::before {
+    position: absolute;
+    border-radius: 50%;
+    top: 2px;
+    right: 2px;
+    content: "";
+    background: #ffffff;
+    width: 10px;
+    height: 10px;
+}
+.filter-checkbox__label {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+}
