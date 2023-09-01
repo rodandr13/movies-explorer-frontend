@@ -11,14 +11,14 @@ function Register() {
         <Logo />
         <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form" action="#">
-          <TextField label="Имя" />
-          <TextField label="E-mail" />
-          <TextField label="Пароль" />
+          <TextField label="Имя" inputId="register-name" />
+          <TextField label="E-mail" inputId="register-email" />
+          <TextField label="Пароль" inputId="register-password" />
           <SubmitButton text="Зарегистрироваться" />
         </form>
         <p className="register__text">
           Уже зарегистрированы?
-          <a className="register__link" href="/">Войти</a>
+          <a className="register__link" href="/"> Войти</a>
         </p>
       </header>
     </section>
