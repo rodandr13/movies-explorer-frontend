@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import './SubmitButton.css';
 
-function SubmitButton({text}) {
-    return (
-        <button className='register__submit' type='submit'>{text}</button>
-    )
+function SubmitButton({ text }) {
+  return (
+    <button className="submit-button" type="submit">{text}</button>
+  );
 }
 
 export default SubmitButton;
