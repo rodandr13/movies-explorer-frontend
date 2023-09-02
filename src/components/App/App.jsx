@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
-import Register from '../Register/Register';
+
+import Login from '../Login/Login';
 
 // eslint-disable-next-line no-lone-blocks
 { /*
+import Register from '../Register/Register';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -13,8 +15,10 @@ import SavedMovies from '../SavedMovies/SavedMovies'; */ }
 function App() {
   return (
     <div className="page">
-      <Register />
-      {/* <Header />
+      <Login />
+
+      {/*  <Register />
+      <Header />
         <Main />
         <Movies />
         <SavedMovies />

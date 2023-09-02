@@ -2,27 +2,27 @@
 @import "./vendor/fonts/inner-fonts.css";
 
 .section-title {
-    margin: 0 0 70px 0;
-    padding: 0 0 23px 0;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 26px;
-    letter-spacing: -0.04em;
-    border-bottom: 1px solid #000000;
+  margin: 0 0 70px 0;
+  padding: 0 0 23px 0;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #000000;
 }
 
 .section-text {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 22px;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
 }
 
 .container_theme_dark {
-    background: #073042;
+  background: #073042;
 }
 
 .container_theme_light {
-    background: #f5f5f5;
+  background: #f5f5f5;
 }
