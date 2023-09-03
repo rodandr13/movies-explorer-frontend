@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';
+import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
 import SubmitButton from '../SubmitButton/SubmitButton';
@@ -15,7 +16,7 @@ function Login() {
         <SubmitButton text="Войти" />
         <p className="login__text">
           Ещё не зарегистрированы?
-          <a className="login__link" href="/"> Регистрация</a>
+          <Link className="login__link" to="/signup"> Регистрация</Link>
         </p>
       </form>
     </section>

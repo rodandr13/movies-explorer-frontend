@@ -1,7 +1,8 @@
 .footer {
   box-sizing: border-box;
   padding: 83px 70px 20px 70px;
-  margin: 0 auto;
+  margin: auto auto 0 auto;
+  width: 100%;
   max-width: 1280px;
   min-width: 320px;
   display: flex;

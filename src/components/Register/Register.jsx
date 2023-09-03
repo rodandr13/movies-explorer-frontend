@@ -1,5 +1,6 @@
 import React from 'react';
 import './Register.css';
+import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
 import SubmitButton from '../SubmitButton/SubmitButton';
@@ -17,7 +18,7 @@ function Register() {
       </form>
       <p className="register__text">
         Уже зарегистрированы?
-        <a className="register__link" href="/"> Войти</a>
+        <Link to="/signin" className="register__link"> Войти</Link>
       </p>
     </section>
   );
