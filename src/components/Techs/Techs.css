@@ -8,7 +8,9 @@
   min-width: 320px;
   background: #f5f5f5;
 }
-
+.techs__title {
+  margin: 0 0 70px 0;
+}
 .tech-tags {
   display: flex;
   gap: 10px;
@@ -57,5 +59,29 @@
   font-weight: 400;
   line-height: 17px;
   letter-spacing: -0.04em;
+}
 
+@media screen and (max-width: 800px) {
+  .techs {
+    padding: 90px 50px 90px 50px;
+  }
+  .techs__title {
+    margin: 0 0 60px 0;
+  }
+  .techs__caption {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 82px 0;
+  }
+  .techs__subheader {
+    margin: 20px 0 23px 0;
+  }
+  .tech-tags {
+    padding: 0 10px 0 10px;
+  }
+  .tech-tags__item {
+    font-size: 12px;
+    line-height: 15px;
+    min-height: 57px;
+  }
 }

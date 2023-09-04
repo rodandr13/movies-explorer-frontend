@@ -87,3 +87,34 @@
 .time-tracker__title_type_weeks {
   width: 80%;
 }
+
+@media screen and (max-width: 800px) {
+  .about-project {
+    padding: 90px 50px 90px 50px;
+  }
+  .about-project__list {
+    gap: 30px;
+  }
+  .information {
+    max-width: 319px;
+  }
+  .information__text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+  }
+  .information__text {
+    padding: 0;
+    margin: 22px 0 0 0;
+  }
+  .time-tracker {
+    margin: 93px 0 0 0;
+  }
+  .time-tracker__title_type_stages {
+    width: 21%;
+  }
+
+  .time-tracker__title_type_weeks {
+    width: 79%;
+  }
+}
