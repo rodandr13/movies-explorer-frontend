@@ -17,4 +17,7 @@ module.exports = {
     'react',
     'import',
   ],
+  rules: {
+    'react/jsx-no-useless-fragment': 'off',
+  },
 };
