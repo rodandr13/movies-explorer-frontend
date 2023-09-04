@@ -47,13 +47,17 @@
 }
 
 .portfolio__link::after {
-  content: url('../../images/arrow-icon.svg');
+  content: "";
+  background-image: url('../../images/arrow-icon.svg');
+  background-size: 18px 17px;
+  background-repeat: no-repeat;
   width: 18px;
   height: 17px;
   position: absolute;
-  top: 18px;
+  top: 40px;
   right: 7px;
 }
+
 
 @media screen and (max-width: 800px) {
   .portfolio {
@@ -63,7 +67,31 @@
     font-size: 28px;
   }
   .portfolio__link::after {
-    top: 22px;
+    top: 40px;
+    right: 5px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .portfolio {
+    padding: 0 14px 90px 14px;
+  }
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 22px 0;
+  }
+  .portfolio__item {
+
+  }
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .portfolio__link::after {
+    background-size: 11px 11px;
+    width: 11px;
+    height: 11px;
+    top: 27px;
     right: 5px;
   }
 }

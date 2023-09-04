@@ -10,6 +10,14 @@
   letter-spacing: -0.04em;
   border-bottom: 1px solid #000000;
 }
+@media screen and (max-width: 500px) {
+  .section-title {
+    padding: 0 0 28px 0;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+  }
+}
 
 .section-text {
   padding: 0;

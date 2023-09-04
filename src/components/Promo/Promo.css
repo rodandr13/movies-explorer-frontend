@@ -16,7 +16,7 @@
 
 .promo__title {
   margin: 0 0 36px 0;
-  padding: 0;
+  padding: 0 20px 0 0;
   color: #ffffff;
   max-width: 640px;
   font-size: 50px;
@@ -63,12 +63,13 @@
   .promo {
     flex-direction: column-reverse;
     align-items: center;
-    padding: 140px 0 76px 0;
+    padding: 140px 18px 76px 18px;
   }
   .promo__text-container {
     align-items: center;
   }
   .promo__title {
+    padding: 0 0 0 0;
     text-align: center;
     font-size: 40px;
     font-weight: 400;
@@ -82,5 +83,24 @@
     font-weight: 400;
     line-height: 16px;
     text-align: center;
+  }
+}
+@media screen and (max-width: 500px) {
+  .promo {
+    padding: 70px 10px 30px 10px;
+  }
+  .promo__illustration {
+    width: 210px;
+    height: 206px;
+  }
+  .promo__title {
+    margin: 44px 0 24px 0;
+    font-size: 30px;
+    line-height: 38px;
+    max-width: 100%;
+    letter-spacing: -0.04em;
+  }
+  .promo__subtitle {
+    margin: 0 0 80px 0;
   }
 }

@@ -6,9 +6,36 @@ function Portfolio() {
     <section className="portfolio">
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
-        <li className="portfolio__item"><a className="portfolio__link" href="#">Статичный сайт</a></li>
-        <li className="portfolio__item"><a className="portfolio__link" href="#">Адаптивный сайт</a></li>
-        <li className="portfolio__item"><a className="portfolio__link" href="#">Одностраничное приложение</a></li>
+        <li className="portfolio__item">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/rodandr13/how-to-learn"
+          >
+            Статичный сайт
+          </a>
+        </li>
+        <li className="portfolio__item">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/rodandr13/mesto"
+          >
+            Адаптивный сайт
+          </a>
+        </li>
+        <li className="portfolio__item">
+          <a
+            className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/rodandr13/react-mesto-auth"
+          >
+            Одностраничное приложение
+          </a>
+        </li>
       </ul>
     </section>
   );

@@ -8,12 +8,6 @@
 
 .about-project__title {
   margin: 0 0 70px 0;
-  padding: 0 0 23px 0;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 26px;
-  letter-spacing: -0.04em;
-  border-bottom: 1px solid #000000;
 }
 
 .about-project__list {
@@ -22,12 +16,8 @@
   justify-content: space-between;
   margin: 0;
   padding: 0;
+  gap: 50px;
 }
-
-.information {
-  max-width: 550px;
-}
-
 .information__title {
   margin: 0;
   padding: 0;
@@ -93,10 +83,7 @@
     padding: 90px 50px 90px 50px;
   }
   .about-project__list {
-    gap: 30px;
-  }
-  .information {
-    max-width: 319px;
+    gap: 36px;
   }
   .information__text {
     font-size: 12px;
@@ -116,5 +103,52 @@
 
   .time-tracker__title_type_weeks {
     width: 79%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .about-project {
+    padding: 70px 18px 70px 18px;
+  }
+  .about-project__title {
+    margin: 0 0 60px 0;
+  }
+  .about-project__list {
+    gap: 56px;
+    flex-direction: column;
+  }
+  .information__title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .information__text {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+    margin: 16px 0 0 0;
+  }
+  .time-tracker__subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    margin: 10px 0 0 0;
+  }
+  .time-tracker__title {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    padding: 11px 0 11px 0;
+  }
+  .information {
+    max-width: none;
+  }
+  .time-tracker {
+    margin: 60px 0 0 0;
+  }
+  .time-tracker__title_type_stages {
+    width: 35%;
+  }
+
+  .time-tracker__title_type_weeks {
+    width: 65%;
   }
 }
