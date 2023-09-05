@@ -1,4 +1,8 @@
 .header {
+  position: relative;
+  border: none;
+  outline: none;
+  box-shadow: none;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -11,7 +15,7 @@
 
 @media screen and (max-width: 800px) {
   .header {
-    padding: 0 30px 0 30px;
+    padding: 0 38px 0 30px;
   }
 }
 @media screen and (max-width: 500px) {

@@ -5,6 +5,7 @@
   list-style-type: none;
   gap: 30px;
   justify-content: center;
+  align-items: center;
 }
 
 .menu__link {
@@ -30,6 +31,7 @@
 }
 .menu__link_type_main {
   font-size: 13px;
+  font-weight: 500;
   line-height: 18px;
 }
 .menu__list_type_main {
@@ -47,6 +49,7 @@
   line-height: 12px;
   box-sizing: border-box;
   text-decoration: none;
+  display: block;
 }
 .profile-link::after {
   content: "";
@@ -61,19 +64,92 @@
   top: 4px;
   right: 3px;
 }
+.menu__item_type_mobile {
+  display: none;
+}
+.menu__item_type_profile {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
-  .menu__main {
+  .menu__item_type_mobile {
+    display: block;
+  }
+  .menu__item_type_desktop {
     display: none;
+  }
+  .menu__link {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    text-align: center;
+  }
+  .menu__main {
+    position: fixed;
+    background: #ffffff;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    max-width: 520px;
+    width: 100%;
+    padding: 160px 0 0 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    z-index: 1;
+  }
+  .menu__main_type_close {
+    right: -100%;
+    transition-duration: 0.35s;
+  }
+  .menu__main_type_open {
+    right: 0;
+    transition: right 0.35s;
+  }
+  .menu__link_type_main {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+  .menu__list_type_main {
+    gap: 28px;
+  }
+  .menu__list {
+    flex-direction: column;
+    height: 100vh;
+  }
+  .menu__item_type_profile {
+    display: block;
+    margin-top: auto;
+    margin-bottom: 250px;
   }
 }
 @media screen and (max-width: 500px) {
   .menu__list {
     gap: 14px;
   }
+  .menu__list_type_main {
+    gap: 24px;
+  }
   .menu__link {
     font-size: 10px;
   }
+  .menu__link_type_main {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+  }
   .menu__link_type_signin {
     padding: 7px 12px 6px 12px;
+  }
+  .menu__item_type_profile {
+    display: block;
+    margin-top: auto;
+    margin-bottom: 190px;
+  }
+  .menu__main {
+    padding: 145px 0 0 0;
   }
 }
