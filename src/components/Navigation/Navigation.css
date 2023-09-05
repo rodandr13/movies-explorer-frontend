@@ -60,9 +60,12 @@
   position: absolute;
   top: 4px;
   right: 3px;
-
 }
-
+@media screen and (max-width: 800px) {
+  .menu__main {
+    display: none;
+  }
+}
 @media screen and (max-width: 500px) {
   .menu__list {
     gap: 14px;

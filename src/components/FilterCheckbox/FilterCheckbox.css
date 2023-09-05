@@ -31,3 +31,13 @@
   font-weight: 400;
   line-height: 18px;
 }
+@media screen and (max-width: 800px) {
+  .filter-checkbox {
+    flex-direction: row-reverse;
+  }
+}
+@media screen and (max-width: 500px) {
+  .filter-checkbox__label {
+    font-size: 11px;
+  }
+}
