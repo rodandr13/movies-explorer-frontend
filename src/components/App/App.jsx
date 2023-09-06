@@ -11,13 +11,16 @@ import Footer from '../Footer/Footer';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import useResize from '../../hooks/useResize';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const location = useLocation();
   const windowWidth = useResize();
   const isMobile = windowWidth <= 800;
-  const isAuthPage = ['/signin', '/signup', '/profile'].includes(location.pathname);
-  const showHeader = !isAuthPage || (isAuthPage && isMobile && location.pathname === '/profile');
+
+  const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
+  const showHeader = routesWithHeaderFooter.includes(location.pathname) || (isMobile && location.pathname === '/profile');
+  const showFooter = routesWithHeaderFooter.includes(location.pathname);
 
   return (
     <div className="page">
@@ -29,8 +32,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      {!isAuthPage && <Footer />}
+      {showFooter && <Footer />}
     </div>
   );
 }
