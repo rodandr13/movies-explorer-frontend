@@ -1,27 +1,33 @@
 .profile {
-  max-width: 396px;
+  max-width: 410px;
   width: 100%;
   margin: 0 auto;
   padding: 70px 0 0 0;
+  box-sizing: border-box;
 }
 
 .profile__title {
-  margin: 40px 0 120px 0;
+  margin: 78px 0 107px 0;
   padding: 0;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 500;
-  line-height: 36px;
+  line-height: 29px;
   text-align: center;
 }
+
 .profile-form {
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
 }
+
 .profile-form__text {
   font-size: 11px;
   font-weight: 500;
   line-height: 13px;
 }
+
 .profile-form__input {
   font-size: 11px;
   font-weight: 400;
@@ -29,18 +35,21 @@
   text-align: right;
   border: none;
 }
+
 .profile-form__label {
   display: flex;
-  padding: 17px 0 17px 0;
+  padding: 16px 0 16px 0;
   justify-content: space-between;
   border-bottom: 1px solid #e8e8e8;
 }
+
 .profile-form__label:nth-child(2) {
   border: none;
 }
+
 .profile__list {
   list-style-type: none;
-  margin: 220px 0 0 0;
+  margin: 200px 0 0 0;
   padding: 0;
   display: flex;
   gap: 16px;
@@ -49,23 +58,90 @@
   align-items: center;
 }
 .profile__button {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
+  text-decoration: none;
+  display: block;
+
 }
-.profile__button_type_edit {
+.profile__link {
+  margin: 0 auto;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+}
+
+.profile__link_type_edit {
   font-size: 13px;
   font-weight: 400;
   line-height: 16px;
   text-align: center;
 }
-.profile__button_type_logout {
+
+.profile__link_type_logout {
   font-size: 13px;
   font-weight: 500;
   line-height: 16px;
   text-align: center;
   color: #ff004d;
+}
+.profile__link_type_save {
+  border: none;
+  padding: 13px 0 15px 0;
+  color: #ffffff;
+  background: #3456f3;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  max-width: 410px;
+  display: block;
+}
+.profile__list-item {
+  width: 100%;
+}
+@media screen and (max-width: 800px) {
+  .profile {
+    padding: 158px 0 0 0;
+  }
+
+  .profile__list {
+    margin: 190px 0 0 0;
+  }
+
+  .profile__title {
+    margin: 78px 0 80px 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile {
+    padding: 70px 30px 0 30px;
+  }
+
+  .profile__title {
+    margin: 0 0 65px 0;
+  }
+  .profile__list {
+    margin: 360px 0 50px 0;
+  }
+  .profile__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
 }
