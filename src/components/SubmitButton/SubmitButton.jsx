@@ -1,15 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './SubmitButton.css';
 
-function SubmitButton({ text }) {
+function SubmitButton({ text, blockClassName, disabled }) {
+  const classes = `${blockClassName}__submit-button submit-button`;
   return (
-    <button className="submit-button" type="submit">{text}</button>
+    <button className={classes} type="submit" disabled={disabled}>{text}</button>
   );
 }
-
-SubmitButton.propTypes = {
-  text: PropTypes.string.isRequired,
-};
 
 export default SubmitButton;

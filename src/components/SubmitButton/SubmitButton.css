@@ -8,5 +8,21 @@
   line-height: 17px;
   text-align: center;
   cursor: pointer;
-  margin: 135px 0 0 0;
+  border-radius: 3px;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+.submit-button:not(:disabled):hover {
+  opacity: 0.8;
+}
+.submit-button:disabled {
+  background: #f8f8f8;
+  color: #c2c2c2;
+  cursor: default;
+}
+@media screen and (max-width: 500px) {
+  .submit-button {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }
