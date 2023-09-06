@@ -44,6 +44,10 @@
   .search-form {
     padding: 79px 30px 50px 30px;
   }
+  .search-form__container {
+    margin: 0 0 31px 0;
+    padding: 0 0 14px 0;
+  }
 }
 
 @media screen and (max-width: 500px) {

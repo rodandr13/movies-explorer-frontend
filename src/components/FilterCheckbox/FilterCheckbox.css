@@ -1,7 +1,7 @@
 .filter-checkbox {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
 }
 
 .filter-checkbox__input {
@@ -34,10 +34,15 @@
 @media screen and (max-width: 800px) {
   .filter-checkbox {
     flex-direction: row-reverse;
+    gap: 18px;
   }
 }
 @media screen and (max-width: 500px) {
   .filter-checkbox__label {
     font-size: 11px;
   }
+  .filter-checkbox {
+    gap: 15px;
+  }
+
 }

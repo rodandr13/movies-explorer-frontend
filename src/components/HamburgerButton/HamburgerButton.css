@@ -17,9 +17,12 @@
   position: absolute;
   width: 100%;
   height: 3px;
-  background: #ffffff;
+  background: #000000;
   z-index: 3;
   transition-duration: .20s;
+}
+.hamburger__button-line_style_light {
+  background: #ffffff;
 }
 
 .hamburger__button-line:nth-child(1) {
@@ -68,5 +71,8 @@
   .hamburger__button_type_close {
     right: 19px;
     top: 17px;
+  }
+  .hamburger {
+    width: 22px;
   }
 }

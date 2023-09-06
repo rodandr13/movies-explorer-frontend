@@ -1,6 +1,6 @@
 .movies-card-list {
   box-sizing: border-box;
-  padding: 66px 70px 70px 70px;
+  padding: 68px 70px 70px 70px;
   margin: 0 auto;
   max-width: 1280px;
   min-width: 320px;
@@ -18,6 +18,9 @@
 .movies-card {
   width: 100%;
   overflow: hidden;
+}
+.movies-card:hover .remove-card-button {
+  visibility: visible;
 }
 .movies-card__image {
   display: block;
@@ -54,17 +57,6 @@
   gap: 25px;
 }
 
-.movies-card__like {
-  padding: 0;
-  margin: -3px 0 0 0;
-  border-radius: 50%;
-  border: none;
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  background: #f9f9f9 url("../../images/like-icon.svg") no-repeat 50% 50%;
-}
-
 .movies-card-list__more-btn {
   display: block;
   margin: 60px auto 0 auto;
@@ -84,7 +76,7 @@
 
 @media screen and (max-width: 800px) {
   .movies-card-list {
-    padding: 77px 30px 98px 30px;
+    padding: 81px 30px 98px 30px;
   }
   .movies-card-list__list {
     gap: 29px 30px;
@@ -109,5 +101,6 @@
   }
   .movies-card-list__more-btn {
     max-width: 240px;
+    margin: 58px auto 0 auto;
   }
 }

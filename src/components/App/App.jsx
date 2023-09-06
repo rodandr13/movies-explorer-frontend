@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 
 import Login from '../Login/Login';
@@ -12,9 +12,11 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 
 function App() {
+  const location = useLocation();
+  const isAuthPage = ['/signin', '/signup', '/profile'].includes(location.pathname);
   return (
     <div className="page">
-      <Header />
+      {!isAuthPage && <Header />}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/movies" element={<Movies />} />
@@ -23,7 +25,7 @@ function App() {
         <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>
-      <Footer />
+      {!isAuthPage && <Footer />}
     </div>
   );
 }
