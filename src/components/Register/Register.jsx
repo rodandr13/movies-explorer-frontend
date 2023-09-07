@@ -15,7 +15,7 @@ function Register() {
   }, []);
 
   return (
-    <section className="register auth">
+    <main className="register auth">
       <Logo />
       <h1 className="auth__title">Добро пожаловать!</h1>
       <Form blockClassName="auth" handleSubmit={handleSubmit} noValidate>
@@ -57,7 +57,7 @@ function Register() {
         Уже зарегистрированы?
         <Link to="/signin" className="auth__link"> Войти</Link>
       </p>
-    </section>
+    </main>
   );
 }
 

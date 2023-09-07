@@ -18,7 +18,8 @@
   padding: 0;
   gap: 50px;
 }
-.information__title {
+
+.about-project__diploma-title {
   margin: 0;
   padding: 0;
   font-size: 20px;
@@ -27,7 +28,7 @@
   letter-spacing: -0.04em;
 }
 
-.information__text {
+.about-project__text {
   padding: 0;
   margin: 26px 0 0 0;
   font-size: 14px;
@@ -35,120 +36,56 @@
   line-height: 20px;
 }
 
-.time-tracker {
-  display: flex;
-  margin: 110px 0 0 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.time-tracker__title {
-  margin: 0;
-  padding: 9px 0 9px 0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 17px;
-  text-align: center;
-
-}
-
-.time-tracker__title_type_backend {
-  background: #2be080;
-}
-
-.time-tracker__title_type_frontend {
-  background: #f2f2f2;
-}
-
-.time-tracker__subtitle {
-  padding: 0;
-  margin: 15px 0 0 0;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 17px;
-  text-align: center;
-  color: #a0a0a0;
-}
-
-.time-tracker__title_type_stages {
-  width: 20%;
-}
-
-.time-tracker__title_type_weeks {
-  width: 80%;
-}
 
 @media screen and (max-width: 800px) {
   .about-project {
     padding: 90px 50px 90px 50px;
   }
+
   .about-project__list {
     gap: 36px;
   }
-  .information__text {
+
+  .about-project__text {
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
   }
-  .information__text {
+
+  .about-project__text {
     padding: 0;
     margin: 22px 0 0 0;
   }
-  .time-tracker {
-    margin: 93px 0 0 0;
-  }
-  .time-tracker__title_type_stages {
-    width: 21%;
-  }
 
-  .time-tracker__title_type_weeks {
-    width: 79%;
-  }
 }
+
 @media screen and (max-width: 500px) {
   .about-project {
     padding: 70px 18px 70px 18px;
   }
+
   .about-project__title {
     margin: 0 0 60px 0;
   }
+
   .about-project__list {
     gap: 56px;
     flex-direction: column;
   }
-  .information__title {
+
+  .about-project__diploma-title {
     font-size: 18px;
     line-height: 22px;
   }
-  .information__text {
+
+  .about-project__text {
     font-size: 11px;
     font-weight: 400;
     line-height: 16px;
     margin: 16px 0 0 0;
   }
-  .time-tracker__subtitle {
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-    margin: 10px 0 0 0;
-  }
-  .time-tracker__title {
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 13px;
-    padding: 11px 0 11px 0;
-  }
-  .information {
-    max-width: none;
-  }
-  .time-tracker {
-    margin: 60px 0 0 0;
-  }
-  .time-tracker__title_type_stages {
-    width: 35%;
-  }
 
-  .time-tracker__title_type_weeks {
-    width: 65%;
+  .about-project__item {
+    max-width: none;
   }
 }

@@ -7,7 +7,17 @@
   justify-content: center;
   align-items: center;
 }
-
+.overlay {
+  background: #000000;
+  opacity: 0.8;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
 .menu__link {
   text-decoration: none;
   color: #000000;
@@ -118,6 +128,7 @@
   .menu__main_type_open {
     right: 0;
     transition: right 0.35s;
+    z-index: 2;
   }
   .menu__link_type_main {
     font-size: 18px;

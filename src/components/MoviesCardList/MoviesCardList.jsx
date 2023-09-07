@@ -1,7 +1,6 @@
 import React from 'react';
 import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ movies }) {
@@ -24,16 +23,5 @@ function MoviesCardList({ movies }) {
     </section>
   );
 }
-
-MoviesCardList.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      duration: PropTypes.string.isRequired,
-      isLiked: PropTypes.bool.isRequired,
-    }),
-  ).isRequired,
-};
 
 export default MoviesCardList;

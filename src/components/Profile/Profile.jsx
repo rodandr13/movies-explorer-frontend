@@ -23,7 +23,7 @@ function Profile() {
     setIsEditable(false);
   };
   return (
-    <section className="profile">
+    <main className="profile">
       <h1 className="profile__title">Привет, Виталий!</h1>
       <form className="profile-form" action="#">
         <label className="profile-form__label" htmlFor="profile-name">
@@ -67,7 +67,7 @@ function Profile() {
           <li className="profile__list-item"><button className="profile__button profile__link_type_save" type="button" onClick={handleSaveProfile}>Сохранить</button></li>
         )}
       </ul>
-    </section>
+    </main>
   );
 }
 

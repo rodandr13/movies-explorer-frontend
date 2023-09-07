@@ -7,12 +7,12 @@ function FilterCheckbox() {
     setIsShortFilms(!isShortFilms);
   }
   return (
-    <div className="filter-checkbox">
+    <section className="filter-checkbox">
       <label className="filter-checkbox__label" htmlFor="filter-checkbox">
         <input type="checkbox" id="filter-checkbox" className={`filter-checkbox__input ${isShortFilms ? 'filter-checkbox__input_active' : ''}`} onChange={handleToggleFilter} />
         <span className="filter-checkbox__caption">Короткометражки</span>
       </label>
-    </div>
+    </section>
   );
 }
 

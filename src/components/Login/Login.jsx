@@ -17,7 +17,7 @@ function Login() {
   }, []);
 
   return (
-    <section className="login auth">
+    <main className="login auth">
       <Logo />
       <h1 className="auth__title">Рады видеть!</h1>
       <Form blockClassName="auth" handleSubmit={handleSubmit} noValidate>
@@ -47,7 +47,7 @@ function Login() {
         Ещё не зарегистрированы?
         <Link className="auth__link" to="/signup"> Регистрация</Link>
       </p>
-    </section>
+    </main>
   );
 }
 

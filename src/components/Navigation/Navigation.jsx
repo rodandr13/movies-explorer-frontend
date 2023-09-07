@@ -63,6 +63,7 @@ function Navigation() {
           <Link to="/profile" className={`profile-link menu__item_type_desktop profile-link_style_${isMainPage ? 'dark' : 'light'}`}>Аккаунт</Link>
         </>
       )}
+      {isMenuOpen && <div className="overlay" />}
     </>
   );
 }

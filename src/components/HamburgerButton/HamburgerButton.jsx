@@ -1,7 +1,6 @@
 import React from 'react';
 import './HamburgerButton.css';
 import { useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 function HamburgerButton({ handleMenuOpen, isMenuOpen }) {
   const location = useLocation();
@@ -19,10 +18,5 @@ function HamburgerButton({ handleMenuOpen, isMenuOpen }) {
     </button>
   );
 }
-
-HamburgerButton.propTypes = {
-  handleMenuOpen: PropTypes.func.isRequired,
-  isMenuOpen: PropTypes.bool.isRequired,
-};
 
 export default HamburgerButton;
