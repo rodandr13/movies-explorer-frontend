@@ -10,16 +10,13 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
-import useResize from '../../hooks/useResize';
 import NotFound from '../NotFound/NotFound';
 
 function App() {
   const location = useLocation();
-  const windowWidth = useResize();
-  const isMobile = windowWidth <= 800;
 
   const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
-  const showHeader = routesWithHeaderFooter.includes(location.pathname) || (isMobile && location.pathname === '/profile');
+  const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
   const showFooter = routesWithHeaderFooter.includes(location.pathname);
 
   return (

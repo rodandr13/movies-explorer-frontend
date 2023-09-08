@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import '../../styles/auth.css';
+import './Login.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
@@ -41,7 +42,7 @@ function Login() {
           error={errors.password || ''}
           required
         />
-        <SubmitButton text="Войти" disabled={!isValid} blockClassName="auth" />
+        <SubmitButton text="Войти" disabled={!isValid} blockClassName="login" />
       </Form>
       <p className="auth__text">
         Ещё не зарегистрированы?
