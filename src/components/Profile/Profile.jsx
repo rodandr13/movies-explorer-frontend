@@ -38,7 +38,7 @@ function Profile() {
               onChange={handleNameChange}
               minLength="2"
               maxLength="30"
-              readOnly={!isEditable}
+              disabled={!isEditable}
               required
             />
           </label>
@@ -53,7 +53,7 @@ function Profile() {
               onChange={handleEmailChange}
               minLength="2"
               maxLength="30"
-              readOnly={!isEditable}
+              disabled={!isEditable}
               required
             />
           </label>
