@@ -1,0 +1,13 @@
+.like-button {
+  padding: 0;
+  margin: -3px 0 0 0;
+  border-radius: 50%;
+  border: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background: #f9f9f9 url("../../images/like-icon-white.svg") no-repeat 50% 50%;
+}
+.like-button_is-liked {
+  background: #f9f9f9 url("../../images/like-icon.svg") no-repeat 50% 50%;
+}

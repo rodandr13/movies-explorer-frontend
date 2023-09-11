@@ -1,0 +1,9 @@
+.login__submit-button {
+  margin: 206px 0 0 0;
+}
+
+@media screen and (max-width: 500px) {
+  .login__submit-button {
+    margin: 296px 0 0 0;
+  }
+}
