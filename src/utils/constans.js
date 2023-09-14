@@ -5,6 +5,8 @@ import movieImage4 from '../images/movie-img-4.jpg';
 import movieImage5 from '../images/movie-img-5.jpg';
 import movieImage6 from '../images/movie-img-6.jpg';
 
+export const BASE_URL = 'https://api.nomoreparties.co';
+
 export const movies = [
   {
     id: 1,
