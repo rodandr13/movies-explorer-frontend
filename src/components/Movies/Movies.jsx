@@ -7,13 +7,12 @@ import Preloader from '../Preloader/Preloader';
 
 function Movies() {
   const [movies, setMovies] = useState([]);
-  const [searchError, setSearchError] = useState(null);
+  const [searchError, setSearchError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedMovies = localStorage.getItem('savedMovies');
     if (savedMovies) {
-      console.log('Есть ли в локал');
       setMovies(JSON.parse(savedMovies));
     }
   }, []);
@@ -36,7 +35,7 @@ function Movies() {
         }
         setMovies(filteredMovies);
         localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
-        setSearchError(null);
+        setSearchError('');
       })
       .catch(() => {
         setSearchError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
