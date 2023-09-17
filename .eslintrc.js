@@ -20,5 +20,6 @@ module.exports = {
   rules: {
     'react/jsx-no-useless-fragment': 'off',
     'react/prop-types': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };

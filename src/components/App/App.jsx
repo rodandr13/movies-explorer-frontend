@@ -18,6 +18,7 @@ import {
   checkAuth, getUserInfo, login, logout, register,
 } from '../../utils/MainApi';
 import LoggedInContext from '../../context/LoggedInContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const navigate = useNavigate();
@@ -99,9 +100,9 @@ function App() {
           {showHeader && <Header />}
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/saved-movies" element={<SavedMovies />} />
-            <Route path="/profile" element={<Profile handleLogout={handleLogout} />} />
+            <Route path="/movies" element={<ProtectedRoute element={Movies} />} />
+            <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} />} />
+            <Route path="/profile" element={<ProtectedRoute element={Profile} handleLogout={handleLogout} />} />
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
             <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
             <Route path="*" element={<NotFound />} />
