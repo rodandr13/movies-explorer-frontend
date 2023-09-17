@@ -5,7 +5,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import getMovies from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader';
 
-function Movies() {
+function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
   const [movies, setMovies] = useState([]);
   const [searchError, setSearchError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -60,9 +60,9 @@ function Movies() {
       });
   };
   useEffect(() => {
-    const savedMovies = localStorage.getItem('savedMovies');
-    if (savedMovies) {
-      setMovies(JSON.parse(savedMovies));
+    const localSavedMovies = localStorage.getItem('savedMovies');
+    if (localSavedMovies) {
+      setMovies(JSON.parse(localSavedMovies));
     }
     if (query) {
       handleSubmit(query, isShortFilm);
@@ -83,7 +83,16 @@ function Movies() {
         query={query}
         onFilterChange={handleFilterChangeCallback}
       />
-      {isLoading ? <Preloader /> : <MoviesCardList movies={movies} searchError={searchError} />}
+      {isLoading ? <Preloader />
+        : (
+          <MoviesCardList
+            movies={movies}
+            savedMovies={savedMovies}
+            searchError={searchError}
+            handleDeleteMovie={handleDeleteMovie}
+            handleSavedMovie={handleSavedMovie}
+          />
+        )}
     </main>
   );
 }

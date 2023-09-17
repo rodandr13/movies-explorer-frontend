@@ -6,7 +6,9 @@ import { BASE_URL } from '../../utils/constants';
 import { convertDuration } from '../../utils/utils';
 import useResize from '../../hooks/useResize';
 
-function MoviesCardList({ movies, searchError }) {
+function MoviesCardList({
+  movies, searchError, handleSavedMovie, handleDeleteMovie, savedMovies,
+}) {
   console.log(movies.length);
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moviesCount, setMoviesCount] = useState(0);
@@ -60,11 +62,14 @@ function MoviesCardList({ movies, searchError }) {
           <ul className="movies-card-list__list">
             {displayMovies.map((movie) => (
               <MoviesCard
+                movie={movie}
                 name={movie.nameRU}
                 image={`${BASE_URL}${movie.image.url}`}
                 duration={convertDuration(movie.duration)}
                 key={movie.id}
-                isLiked={movie.isLiked}
+                handleSavedMovie={handleSavedMovie}
+                handleDeleteMovie={handleDeleteMovie}
+                savedMovies={savedMovies}
               />
             ))}
           </ul>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Routes, Route, useLocation, useNavigate,
+  Route, Routes, useLocation, useNavigate,
 } from 'react-router-dom';
 import './App.css';
 
@@ -15,16 +15,24 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import {
-  checkAuth, getUserInfo, login, logout, register,
+  addSavedMovie,
+  checkAuth,
+  deleteSavedMovie, getSavedMovies,
+  getUserInfo,
+  login,
+  logout,
+  register,
 } from '../../utils/MainApi';
 import LoggedInContext from '../../context/LoggedInContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { BASE_URL } from '../../utils/constants';
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [savedMovies, setSavedMovies] = useState([]);
   const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
   const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
   const showFooter = routesWithHeaderFooter.includes(location.pathname);
@@ -92,6 +100,59 @@ function App() {
         console.log(error);
       });
   };
+  useEffect(() => {
+    console.log(savedMovies);
+  }, [savedMovies]);
+
+  const handleSavedMovie = (movie) => {
+    addSavedMovie({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `${BASE_URL}${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `${BASE_URL}${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    })
+      .then((savedMovie) => {
+        setSavedMovies([savedMovie, ...savedMovies]);
+        console.log(savedMovies);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleDeleteMovie = (movie) => {
+    const movieToDelete = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+    console.log(movie);
+    console.log(savedMovies);
+    deleteSavedMovie(movieToDelete._id)
+      .then((res) => {
+        console.log(res);
+        const updatedSavedMovies = savedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieToDelete._id,
+        );
+        setSavedMovies(updatedSavedMovies);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    if (loggedIn) {
+      getSavedMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [loggedIn]);
 
   return (
     <LoggedInContext.Provider value={loggedIn}>
@@ -100,9 +161,39 @@ function App() {
           {showHeader && <Header />}
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/movies" element={<ProtectedRoute element={Movies} />} />
-            <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} />} />
-            <Route path="/profile" element={<ProtectedRoute element={Profile} handleLogout={handleLogout} />} />
+            <Route
+              path="/movies"
+              element={(
+                <ProtectedRoute
+                  element={Movies}
+                  savedMovies={savedMovies}
+                  handleDeleteMovie={handleDeleteMovie}
+                  loggedIn={loggedIn}
+                  handleSavedMovie={handleSavedMovie}
+                />
+              )}
+            />
+            <Route
+              path="/saved-movies"
+              element={(
+                <ProtectedRoute
+                  element={SavedMovies}
+                  savedMovies={savedMovies}
+                  handleDeleteMovie={handleDeleteMovie}
+                  loggedIn={loggedIn}
+                />
+              )}
+            />
+            <Route
+              path="/profile"
+              element={(
+                <ProtectedRoute
+                  element={Profile}
+                  handleLogout={handleLogout}
+                  loggedIn={loggedIn}
+                />
+              )}
+            />
             <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
             <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
             <Route path="*" element={<NotFound />} />

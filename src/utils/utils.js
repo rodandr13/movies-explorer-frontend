@@ -8,7 +8,7 @@ export function fetchData({
   const options = {
     method,
     headers: { ...extraHeaders, 'Content-Type': 'application/json' },
-    body: method !== 'GET' ? JSON.stringify(data) : null,
+    body: (method !== 'GET' && method !== 'DELETE') ? JSON.stringify(data) : null,
   };
   if (useCredentials) {
     options.credentials = 'include';

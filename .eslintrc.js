@@ -21,5 +21,6 @@ module.exports = {
     'react/jsx-no-useless-fragment': 'off',
     'react/prop-types': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

@@ -51,3 +51,54 @@ export const checkAuth = () => {
     useCredentials: true,
   });
 };
+
+export const addSavedMovie = ({
+  country,
+  director,
+  duration,
+  year,
+  description,
+  image,
+  trailerLink,
+  thumbnail,
+  movieId,
+  nameRU,
+  nameEN,
+}) => {
+  const endpoint = '/movies';
+  return fetchData({
+    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    method: 'POST',
+    useCredentials: true,
+    data: {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      movieId,
+      nameRU,
+      nameEN,
+    },
+  });
+};
+
+export const getSavedMovies = () => {
+  const endpoint = '/movies';
+  return fetchData({
+    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    useCredentials: true,
+  });
+};
+
+export const deleteSavedMovie = (movieId) => {
+  const endpoint = '/movies';
+  return fetchData({
+    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}/${movieId}`,
+    method: 'DELETE',
+    useCredentials: true,
+  });
+};

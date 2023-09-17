@@ -1,9 +1,17 @@
 import React from 'react';
 import './LikeButton.css';
 
-function LikeButton({ isLiked }) {
+function LikeButton({
+  movie, isLiked, handleSavedMovie, handleDeleteMovie,
+}) {
+  const onSavedMovie = () => {
+    handleSavedMovie(movie);
+  };
+  const onDeleteMovie = () => {
+    handleDeleteMovie(movie);
+  };
   return (
-    <button className={`like-button ${isLiked ? 'like-button_is-liked' : ''}`} type="button" aria-label="Нравится" />
+    <button onClick={isLiked ? onDeleteMovie : onSavedMovie} className={`like-button ${isLiked ? 'like-button_is-liked' : ''}`} type="button" aria-label="Нравится" />
   );
 }
 
