@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
@@ -6,13 +6,14 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import Form from '../Form/Form';
 import useFormValidation from '../../hooks/useFormValidation';
 
-function Register() {
+function Register({ handleRegister }) {
   const {
     values, handleChange, errors, isValid,
   } = useFormValidation();
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }, []);
+    handleRegister(values);
+  };
 
   return (
     <main className="register auth">

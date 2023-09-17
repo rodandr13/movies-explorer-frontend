@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import '../../styles/auth.css';
 import './Login.css';
 import { Link } from 'react-router-dom';
@@ -8,14 +8,15 @@ import SubmitButton from '../SubmitButton/SubmitButton';
 import useFormValidation from '../../hooks/useFormValidation';
 import Form from '../Form/Form';
 
-function Login() {
+function Login({ handleLogin }) {
   const {
     values, handleChange, errors, isValid,
   } = useFormValidation();
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }, []);
+    handleLogin(values);
+  };
 
   return (
     <main className="login auth">

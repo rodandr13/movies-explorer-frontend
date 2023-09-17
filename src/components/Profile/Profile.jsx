@@ -1,8 +1,7 @@
 import { React, useState } from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
 
-function Profile() {
+function Profile({ handleLogout }) {
   const [name, setName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
   const [isEditable, setIsEditable] = useState(false);
@@ -74,12 +73,13 @@ function Profile() {
                 </button>
               </li>
               <li className="profile__list-item">
-                <Link
-                  to="/"
+                <button
+                  type="button"
+                  onClick={handleLogout}
                   className="profile__link profile__link_type_logout"
                 >
                   Выйти из аккаунта
-                </Link>
+                </button>
               </li>
             </>
           ) : (

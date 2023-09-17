@@ -6,6 +6,8 @@ import movieImage5 from '../images/movie-img-5.jpg';
 import movieImage6 from '../images/movie-img-6.jpg';
 
 export const BASE_URL = 'https://api.nomoreparties.co';
+export const API_BACKEND_URL = 'https://api.backend.nomoreparties.co';
+export const DEV_BACKEND_LOCALHOST = 'http://localhost:3001';
 
 export const movies = [
   {

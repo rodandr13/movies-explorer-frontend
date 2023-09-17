@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { savedMovies } from '../../utils/constans';
+import { savedMovies } from '../../utils/constants';
 
 function SavedMovies() {
   return (

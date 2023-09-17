@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { BASE_URL } from '../../utils/constans';
-import convertDuration from '../../utils/utils';
+import { BASE_URL } from '../../utils/constants';
+import { convertDuration } from '../../utils/utils';
 import useResize from '../../hooks/useResize';
 
 function MoviesCardList({ movies, searchError }) {
