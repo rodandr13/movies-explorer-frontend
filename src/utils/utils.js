@@ -3,13 +3,16 @@ export function fetchData({
   method = 'GET',
   extraHeaders = {},
   data = null,
+  useCredentials = false,
 }) {
   const options = {
     method,
     headers: { ...extraHeaders, 'Content-Type': 'application/json' },
     body: method !== 'GET' ? JSON.stringify(data) : null,
-    credentials: 'include',
   };
+  if (useCredentials) {
+    options.credentials = 'include';
+  }
   return fetch(endpoint, options)
     .then((res) => {
       if (res.ok) {

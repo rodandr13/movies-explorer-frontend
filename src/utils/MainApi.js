@@ -11,6 +11,7 @@ export const register = ({ name, email, password }) => {
       password,
       email,
     },
+    useCredentials: true,
   });
 };
 
@@ -23,6 +24,7 @@ export const login = ({ email, password }) => {
       password,
       email,
     },
+    useCredentials: true,
   });
 };
 
@@ -30,6 +32,15 @@ export const logout = () => {
   const endpoint = '/signout';
   return fetchData({
     endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    useCredentials: true,
+  });
+};
+
+export const getUserInfo = () => {
+  const endpoint = '/users/me';
+  return fetchData({
+    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    useCredentials: true,
   });
 };
 
@@ -37,5 +48,6 @@ export const checkAuth = () => {
   const endpoint = '/check-auth';
   return fetchData({
     endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    useCredentials: true,
   });
 };

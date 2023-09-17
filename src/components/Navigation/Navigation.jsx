@@ -1,10 +1,11 @@
 import {
-  React, useCallback, useEffect, useState,
+  React, useCallback, useContext, useEffect, useState,
 } from 'react';
 import './Navigation.css';
 import { Link, useLocation } from 'react-router-dom';
 import HamburgerButton from '../HamburgerButton/HamburgerButton';
 import useResize from '../../hooks/useResize';
+import LoggedInContext from '../../context/LoggedInContext';
 
 function Navigation() {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -25,10 +26,10 @@ function Navigation() {
     setMenuOpen((prevMenuState) => !prevMenuState);
   }, []);
 
-  const isLoggedIn = true;
+  const isLoggedIn = useContext(LoggedInContext);
   return (
     <>
-      {!isLoggedIn || isMainPage ? (
+      {!isLoggedIn ? (
         <nav className="menu">
           <ul className="menu__list">
             <li className="menu__item">
