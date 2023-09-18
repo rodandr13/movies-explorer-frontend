@@ -17,7 +17,7 @@ import NotFound from '../NotFound/NotFound';
 import {
   addSavedMovie,
   checkAuth,
-  deleteSavedMovie, getSavedMovies,
+  deleteSavedMovie, editUserInfo, getSavedMovies,
   getUserInfo,
   login,
   logout,
@@ -33,6 +33,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [editProfileError, setEditProfileError] = useState('');
   const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
   const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
   const showFooter = routesWithHeaderFooter.includes(location.pathname);
@@ -154,6 +155,16 @@ function App() {
     }
   }, [loggedIn]);
 
+  const handleEditUser = ({ name, email }) => editUserInfo({ name, email })
+    .then((user) => {
+      setCurrentUser(user);
+    })
+    .catch((error) => {
+      console.log(error);
+      setEditProfileError(error.message);
+      throw error;
+    });
+
   return (
     <LoggedInContext.Provider value={loggedIn}>
       <CurrentUserContext.Provider value={currentUser}>
@@ -191,6 +202,8 @@ function App() {
                   element={Profile}
                   handleLogout={handleLogout}
                   loggedIn={loggedIn}
+                  handleEditUser={handleEditUser}
+                  editProfileError={editProfileError}
                 />
               )}
             />

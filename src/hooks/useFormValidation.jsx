@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-function useFormValidation() {
+function useFormValidation(initialValues, initialIsValid = false) {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(initialIsValid);
 
   const handleChange = (e) => {
     const { target } = e;
@@ -20,7 +20,7 @@ function useFormValidation() {
   };
 
   return {
-    values, handleChange, errors, isValid,
+    values, handleChange, errors, isValid, setValues,
   };
 }
 

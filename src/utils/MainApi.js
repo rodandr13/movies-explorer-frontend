@@ -44,6 +44,19 @@ export const getUserInfo = () => {
   });
 };
 
+export const editUserInfo = ({ name, email }) => {
+  const endpoint = '/users/me';
+  return fetchData({
+    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    method: 'PATCH',
+    useCredentials: true,
+    data: {
+      name,
+      email,
+    },
+  });
+};
+
 export const checkAuth = () => {
   const endpoint = '/check-auth';
   return fetchData({

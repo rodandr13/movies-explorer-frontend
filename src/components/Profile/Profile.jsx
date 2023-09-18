@@ -1,30 +1,43 @@
-import { React, useState } from 'react';
+import {
+  React, useContext, useEffect, useState,
+} from 'react';
 import './Profile.css';
+import useFormValidation from '../../hooks/useFormValidation';
+import CurrentUserContext from '../../context/CurrentUserContext';
 
-function Profile({ handleLogout }) {
-  const [name, setName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
+function Profile({ handleLogout, handleEditUser, editProfileError }) {
+  const { name, email } = useContext(CurrentUserContext);
+
+  const {
+    values, handleChange, errors, isValid, setValues,
+  } = useFormValidation({ name, email }, true);
+
   const [isEditable, setIsEditable] = useState(false);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handleEditProfile = () => {
+  const handleEditProfile = (e) => {
+    e.preventDefault();
     setIsEditable(true);
   };
 
-  const handleSaveProfile = () => {
-    setIsEditable(false);
+  const handleSaveProfile = (e) => {
+    console.log('Сработал');
+    e.preventDefault();
+    handleEditUser(values)
+      .then(() => {
+        setIsEditable(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  useEffect(() => {
+    setValues({ name, email });
+  }, []);
   return (
     <main className="profile">
-      <h1 className="profile__title">Привет, Виталий!</h1>
-      <form className="profile-form">
+      <h1 className="profile__title">{`Привет, ${name}!`}</h1>
+      <form className="profile-form" onSubmit={handleSaveProfile}>
         <div className="profile__container">
           <label className="profile-form__label" htmlFor="profile-name">
             <span className="profile-form__text">Имя</span>
@@ -33,33 +46,39 @@ function Profile({ handleLogout }) {
               type="text"
               id="profile-name"
               placeholder="Имя"
-              value={name}
-              onChange={handleNameChange}
+              name="name"
+              value={values.name || ''}
+              onChange={handleChange}
               minLength="2"
               maxLength="30"
               disabled={!isEditable}
               required
             />
+            {errors.name && <span className="profile-form__error">{errors.name}</span>}
           </label>
           <label className="profile-form__label" htmlFor="profile-email">
             <span className="profile-form__text">E-mail</span>
             <input
               className="profile-form__input"
-              type="text"
+              type="email"
               id="profile-email"
-              value={email}
+              name="email"
+              value={values.email || ''}
               placeholder="E-mail"
-              onChange={handleEmailChange}
+              onChange={handleChange}
               minLength="2"
               maxLength="30"
               disabled={!isEditable}
               required
             />
+            {errors.email && <span className="profile-form__error">{errors.email}</span>}
           </label>
         </div>
+        {editProfileError && (
         <p className={`profile__error ${isEditable ? 'profile__error_active' : ''}`}>
-          Временное сообщение. При обновлении профиля произошла ошибка.
+          {editProfileError}
         </p>
+        )}
         <ul className="profile__list">
           {!isEditable ? (
             <>
@@ -86,8 +105,8 @@ function Profile({ handleLogout }) {
             <li className="profile__list-item">
               <button
                 className="profile__button profile__link_type_save"
-                type="button"
-                onClick={handleSaveProfile}
+                type="submit"
+                disabled={!isValid}
               >
                 Сохранить
               </button>
