@@ -1,9 +1,12 @@
 import React from 'react';
 import './RemoveCardButton.css';
 
-function RemoveCardButton() {
+function RemoveCardButton({ handleDeleteMovie, movie }) {
+  const onDeleteMovie = () => {
+    handleDeleteMovie(movie);
+  };
   return (
-    <button className="remove-card-button" type="button" aria-label="Удалить" />
+    <button className="remove-card-button" type="button" aria-label="Удалить" onClick={onDeleteMovie} />
   );
 }
 

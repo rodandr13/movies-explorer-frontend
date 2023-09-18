@@ -128,9 +128,12 @@ function App() {
       });
   };
   const handleDeleteMovie = (movie) => {
-    const movieToDelete = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
-    console.log(movie);
-    console.log(savedMovies);
+    let movieToDelete;
+    if (movie._id) {
+      movieToDelete = movie;
+    } else {
+      movieToDelete = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+    }
     deleteSavedMovie(movieToDelete._id)
       .then((res) => {
         console.log(res);
@@ -189,7 +192,7 @@ function App() {
               element={(
                 <ProtectedRoute
                   element={SavedMovies}
-                  savedMovies={savedMovies}
+                  movies={savedMovies}
                   handleDeleteMovie={handleDeleteMovie}
                   loggedIn={loggedIn}
                 />

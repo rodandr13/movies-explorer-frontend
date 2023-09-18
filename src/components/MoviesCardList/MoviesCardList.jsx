@@ -9,12 +9,19 @@ import useResize from '../../hooks/useResize';
 function MoviesCardList({
   movies, searchError, handleSavedMovie, handleDeleteMovie, savedMovies,
 }) {
-  console.log(movies.length);
   const [displayMovies, setDisplayMovies] = useState([]);
   const [moviesCount, setMoviesCount] = useState(0);
   const location = useLocation();
   const isMoviesPage = location.pathname === '/movies';
+  const isSavedMoviesPage = location.pathname === '/saved-movies';
   const pageWidth = useResize();
+  useEffect(() => {
+    if (isSavedMoviesPage) {
+      setDisplayMovies(movies);
+    } else {
+      setDisplayMovies(movies.slice(0, moviesCount));
+    }
+  }, [moviesCount, movies, savedMovies, isSavedMoviesPage]);
   useEffect(() => {
     let resizeTimer;
     clearTimeout(resizeTimer);
@@ -35,10 +42,6 @@ function MoviesCardList({
       clearTimeout(resizeTimer);
     };
   }, [pageWidth, movies]);
-
-  useEffect(() => {
-    setDisplayMovies(movies.slice(0, moviesCount));
-  }, [moviesCount, movies]);
 
   const handleMoreButtonClick = () => {
     let additionalMovies;
@@ -64,9 +67,9 @@ function MoviesCardList({
               <MoviesCard
                 movie={movie}
                 name={movie.nameRU}
-                image={`${BASE_URL}${movie.image.url}`}
+                image={isMoviesPage ? `${BASE_URL}${movie.image.url}` : `${movie.image}`}
                 duration={convertDuration(movie.duration)}
-                key={movie.id}
+                key={movie.id || movie.movieId}
                 handleSavedMovie={handleSavedMovie}
                 handleDeleteMovie={handleDeleteMovie}
                 savedMovies={savedMovies}
