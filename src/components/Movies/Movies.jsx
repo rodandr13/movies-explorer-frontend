@@ -4,6 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 // import { movies } from '../../utils/constans';
 import getMovies from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader';
+import { filterMovies } from '../../utils/utils';
 
 function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
   const [movies, setMovies] = useState([]);
@@ -28,6 +29,7 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
     }
     setMovies(currentMovies);
   }, [isShortFilm]);
+
   const handleSubmit = (submittedQuery, currentIsShortFilm) => {
     if (!submittedQuery.trim()) {
       setSearchError('Нужно ввести ключевое слово');
@@ -35,15 +37,11 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
     }
     setQuery(submittedQuery);
     setIsLoading(true);
+
     getMovies()
       .then((allMovies) => {
-        let filteredMovies = allMovies.filter(
-          (movie) => movie.nameRU.toLowerCase().includes(submittedQuery.toLowerCase())
-            || movie.nameEN.toLowerCase().includes(submittedQuery.toLowerCase()),
-        );
-        if (currentIsShortFilm) {
-          filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
-        }
+        const filteredMovies = filterMovies(allMovies, submittedQuery, currentIsShortFilm);
+
         if (filteredMovies.length === 0) {
           setSearchError('Ничего не найдено');
           return;
@@ -59,6 +57,7 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
         setIsLoading(false);
       });
   };
+
   useEffect(() => {
     const localSavedMovies = localStorage.getItem('savedMovies');
     if (localSavedMovies) {

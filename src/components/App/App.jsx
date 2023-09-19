@@ -37,7 +37,7 @@ function App() {
   const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
   const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
   const showFooter = routesWithHeaderFooter.includes(location.pathname);
-
+  console.log(localStorage);
   useEffect(() => {
     checkAuth()
       .then((res) => {
@@ -94,6 +94,11 @@ function App() {
     logout()
       .then((res) => {
         console.log(res);
+        localStorage.removeItem('isShortFilm');
+        localStorage.removeItem('query');
+        localStorage.removeItem('savedMovies');
+        localStorage.removeItem('saved_isShortFilm');
+        localStorage.removeItem('saved_query');
         setLoggedIn(false);
         navigate('/');
       })

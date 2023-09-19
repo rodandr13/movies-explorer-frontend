@@ -29,3 +29,14 @@ export function convertDuration(time) {
   const minutes = time % 60;
   return `${hours}ч ${minutes}м`;
 }
+
+export const filterMovies = (allMovies, searchQuery, currentShortFilm) => {
+  let filteredMovies = allMovies.filter(
+    (movie) => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      || movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+  if (currentShortFilm) {
+    filteredMovies = filteredMovies.filter((movie) => movie.duration <= 40);
+  }
+  return filteredMovies;
+};
