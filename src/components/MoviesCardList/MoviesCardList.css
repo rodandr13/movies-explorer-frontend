@@ -36,6 +36,11 @@
 .movies-card-list__more-btn:hover {
   opacity: 0.8;
 }
+.movies-card-list__error {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
 @media screen and (max-width: 1200px) {
   .movies-card-list__list {
     grid-template-columns: repeat(3, 1fr);

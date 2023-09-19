@@ -3,8 +3,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterMovies } from '../../utils/utils';
 
-function SavedMovies({ movies: savedMovies, handleDeleteMovie }) {
-  const [filteredMovies, setFilteredMovies] = useState(savedMovies);
+function SavedMovies({ movies, handleDeleteMovie }) {
+  const [filteredMovies, setFilteredMovies] = useState(movies);
   const [searchError, setSearchError] = useState('');
   const savedIsShortFilm = localStorage.getItem('saved_isShortFilm');
   const [isShortFilm, setIsShortFilm] = useState(
@@ -13,41 +13,48 @@ function SavedMovies({ movies: savedMovies, handleDeleteMovie }) {
   const savedQuery = localStorage.getItem('saved_query');
   const [query, setQuery] = useState(savedQuery || '');
 
-  useEffect(() => {
-    localStorage.setItem('saved_isShortFilm', JSON.stringify(isShortFilm));
-  }, [isShortFilm]);
-
-  useEffect(() => {
-    localStorage.setItem('saved_query', query);
-  }, [query]);
+  const applyFilters = useCallback((queryValue, isShortFilmValue) => {
+    const resultMovies = filterMovies(movies, queryValue, isShortFilmValue);
+    if (resultMovies.length === 0) {
+      setSearchError('Ничего не найдено');
+    } else {
+      setFilteredMovies(resultMovies);
+      setSearchError('');
+    }
+  }, [movies]);
 
   const handleSubmit = (submittedQuery, currentIsShortFilm) => {
     if (!submittedQuery.trim()) {
-      setSearchError('Нужно ввести ключевое слово');
+      if (movies.length > 0) {
+        setFilteredMovies(movies);
+        setSearchError('');
+      } else {
+        setSearchError('Нужно ввести ключевое слово');
+      }
       return;
     }
     setQuery(submittedQuery);
-
-    const newFilteredMovies = filterMovies(savedMovies, submittedQuery, currentIsShortFilm);
-
-    if (newFilteredMovies.length === 0) {
-      setSearchError('Ничего не найдено');
-      return;
-    }
-    setFilteredMovies(newFilteredMovies);
-    setSearchError('');
+    applyFilters(submittedQuery, currentIsShortFilm);
   };
+
+  useEffect(() => {
+    localStorage.setItem('saved_isShortFilm', JSON.stringify(isShortFilm));
+    localStorage.setItem('saved_query', query);
+  }, [isShortFilm, query]);
+
   useEffect(() => {
     if (savedQuery || savedIsShortFilm) {
-      handleSubmit(savedQuery, JSON.parse(savedIsShortFilm));
+      applyFilters(savedQuery, JSON.parse(savedIsShortFilm));
+    } else {
+      setFilteredMovies(movies);
+      setSearchError('');
     }
-  }, [savedMovies]);
+  }, [movies, savedQuery, savedIsShortFilm, applyFilters]);
+
   const handleFilterChangeCallback = useCallback((newIsShortFilm) => {
     setIsShortFilm(newIsShortFilm);
-    if (query) {
-      handleSubmit(query, newIsShortFilm);
-    }
-  }, [query, handleSubmit]);
+    applyFilters(query, newIsShortFilm);
+  }, [query, applyFilters]);
 
   return (
     <main className="saved-movies">

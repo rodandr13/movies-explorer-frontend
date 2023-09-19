@@ -37,7 +37,6 @@ function App() {
   const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
   const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
   const showFooter = routesWithHeaderFooter.includes(location.pathname);
-  console.log(localStorage);
   useEffect(() => {
     checkAuth()
       .then((res) => {
@@ -99,6 +98,7 @@ function App() {
         localStorage.removeItem('savedMovies');
         localStorage.removeItem('saved_isShortFilm');
         localStorage.removeItem('saved_query');
+        setSavedMovies([]);
         setLoggedIn(false);
         navigate('/');
       })
