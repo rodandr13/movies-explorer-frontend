@@ -25,7 +25,7 @@ import {
 } from '../../utils/MainApi';
 import LoggedInContext from '../../context/LoggedInContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { BASE_URL } from '../../utils/constants';
+import { BASE_URL, ROUTES_WITH_HEADER_FOOTER, LOCAL_STORAGE_KEYS } from '../../utils/constants';
 
 function App() {
   const navigate = useNavigate();
@@ -34,29 +34,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [editProfileError, setEditProfileError] = useState('');
-  const routesWithHeaderFooter = ['/', '/movies', '/saved-movies'];
-  const showHeader = routesWithHeaderFooter.includes(location.pathname) || (location.pathname === '/profile');
-  const showFooter = routesWithHeaderFooter.includes(location.pathname);
-  useEffect(() => {
-    checkAuth()
-      .then((res) => {
-        console.log(res);
-        if (res.loggedIn) {
-          setLoggedIn(true);
-          return getUserInfo();
-        }
-        return null;
-      })
-      .then((userInfo) => {
-        if (userInfo) {
-          console.log(userInfo);
-          setCurrentUser(userInfo);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const showHeader = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname) || (location.pathname === '/profile');
+  const showFooter = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname);
 
   const handleLogin = ({ email, password }) => {
     login({
@@ -93,11 +72,7 @@ function App() {
     logout()
       .then((res) => {
         console.log(res);
-        localStorage.removeItem('isShortFilm');
-        localStorage.removeItem('query');
-        localStorage.removeItem('savedMovies');
-        localStorage.removeItem('saved_isShortFilm');
-        localStorage.removeItem('saved_query');
+        Object.values(LOCAL_STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
         setSavedMovies([]);
         setLoggedIn(false);
         navigate('/');
@@ -106,9 +81,6 @@ function App() {
         console.log(error);
       });
   };
-  useEffect(() => {
-    console.log(savedMovies);
-  }, [savedMovies]);
 
   const handleSavedMovie = (movie) => {
     addSavedMovie({
@@ -151,17 +123,6 @@ function App() {
         console.log(error);
       });
   };
-  useEffect(() => {
-    if (loggedIn) {
-      getSavedMovies()
-        .then((movies) => {
-          setSavedMovies(movies);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [loggedIn]);
 
   const handleEditUser = ({ name, email }) => editUserInfo({ name, email })
     .then((user) => {
@@ -172,6 +133,36 @@ function App() {
       setEditProfileError(error.message);
       throw error;
     });
+
+  useEffect(() => {
+    checkAuth()
+      .then((res) => {
+        console.log(res);
+        if (res.loggedIn) {
+          setLoggedIn(true);
+          return getUserInfo();
+        }
+        return null;
+      })
+      .then((userInfo) => {
+        if (userInfo) {
+          console.log(userInfo);
+          setCurrentUser(userInfo);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    if (loggedIn) {
+      getSavedMovies()
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [loggedIn]);
 
   return (
     <LoggedInContext.Provider value={loggedIn}>

@@ -1,22 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { filterMovies } from '../../utils/utils';
+import { filterMovies, getFromLocalStorage, setToLocalStorage } from '../../utils/utils';
+import {
+  ENTER_KEYWORD_MESSAGE,
+  NOTHING_FOUND_MESSAGE,
+  LOCAL_STORAGE_KEYS,
+} from '../../utils/constants';
 
 function SavedMovies({ movies, handleDeleteMovie }) {
   const [filteredMovies, setFilteredMovies] = useState(movies);
   const [searchError, setSearchError] = useState('');
-  const savedIsShortFilm = localStorage.getItem('saved_isShortFilm');
-  const [isShortFilm, setIsShortFilm] = useState(
-    savedIsShortFilm ? JSON.parse(savedIsShortFilm) : false,
-  );
-  const savedQuery = localStorage.getItem('saved_query');
-  const [query, setQuery] = useState(savedQuery || '');
+  const savedIsShortFilm = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_IS_SHORT_FILM, false);
+  const [isShortFilm, setIsShortFilm] = useState(savedIsShortFilm);
+
+  const savedQuery = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_QUERY, '');
+  const [query, setQuery] = useState(savedQuery);
 
   const applyFilters = useCallback((queryValue, isShortFilmValue) => {
     const resultMovies = filterMovies(movies, queryValue, isShortFilmValue);
     if (resultMovies.length === 0) {
-      setSearchError('Ничего не найдено');
+      setSearchError(NOTHING_FOUND_MESSAGE);
     } else {
       setFilteredMovies(resultMovies);
       setSearchError('');
@@ -29,7 +33,7 @@ function SavedMovies({ movies, handleDeleteMovie }) {
         setFilteredMovies(movies);
         setSearchError('');
       } else {
-        setSearchError('Нужно ввести ключевое слово');
+        setSearchError(ENTER_KEYWORD_MESSAGE);
       }
       return;
     }
@@ -38,8 +42,8 @@ function SavedMovies({ movies, handleDeleteMovie }) {
   };
 
   useEffect(() => {
-    localStorage.setItem('saved_isShortFilm', JSON.stringify(isShortFilm));
-    localStorage.setItem('saved_query', query);
+    setToLocalStorage(LOCAL_STORAGE_KEYS.SAVED_IS_SHORT_FILM, isShortFilm);
+    setToLocalStorage(LOCAL_STORAGE_KEYS.SAVED_QUERY, query);
   }, [isShortFilm, query]);
 
   useEffect(() => {

@@ -1,67 +1,68 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-// import { movies } from '../../utils/constans';
 import getMovies from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader';
-import { filterMovies } from '../../utils/utils';
+import { filterMovies, getFromLocalStorage, setToLocalStorage } from '../../utils/utils';
+import {
+  ENTER_KEYWORD_MESSAGE, ERROR_MESSAGE,
+  NOTHING_FOUND_MESSAGE,
+  LOCAL_STORAGE_KEYS, SHORT_FILM_DURATION,
+} from '../../utils/constants';
 
 function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
   const [movies, setMovies] = useState([]);
   const [searchError, setSearchError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const savedIsShortFilm = localStorage.getItem('isShortFilm');
-  const [isShortFilm, setIsShortFilm] = useState(
-    savedIsShortFilm ? JSON.parse(savedIsShortFilm) : false,
-  );
-  const savedQuery = localStorage.getItem('query');
-  const [query, setQuery] = useState(savedQuery || '');
+  const savedIsShortFilm = getFromLocalStorage(LOCAL_STORAGE_KEYS.IS_SHORT_FILM, false);
+  const [isShortFilm, setIsShortFilm] = useState(savedIsShortFilm);
+  const savedQuery = getFromLocalStorage(LOCAL_STORAGE_KEYS.QUERY, '');
+  const [query, setQuery] = useState(savedQuery);
+
   useEffect(() => {
-    localStorage.setItem('isShortFilm', JSON.stringify(isShortFilm));
-  }, [isShortFilm]);
+    setToLocalStorage(LOCAL_STORAGE_KEYS.IS_SHORT_FILM, isShortFilm);
+    setToLocalStorage(LOCAL_STORAGE_KEYS.QUERY, query);
+  }, [query, isShortFilm]);
+
   useEffect(() => {
-    localStorage.setItem('query', query);
-  }, [query]);
-  useEffect(() => {
-    let currentMovies = JSON.parse(localStorage.getItem('savedMovies') || '[]');
+    let currentMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES, []);
     if (isShortFilm) {
-      currentMovies = currentMovies.filter((movie) => movie.duration <= 40);
+      currentMovies = currentMovies.filter((movie) => movie.duration <= SHORT_FILM_DURATION);
     }
     setMovies(currentMovies);
   }, [isShortFilm]);
 
   const handleSubmit = (submittedQuery, currentIsShortFilm) => {
     if (!submittedQuery.trim()) {
-      setSearchError('Нужно ввести ключевое слово');
+      setSearchError(ENTER_KEYWORD_MESSAGE);
       return;
     }
     setQuery(submittedQuery);
-    setIsLoading(true);
+    setIsLoading((prevState) => !prevState);
 
     getMovies()
       .then((allMovies) => {
         const filteredMovies = filterMovies(allMovies, submittedQuery, currentIsShortFilm);
-
         if (filteredMovies.length === 0) {
-          setSearchError('Ничего не найдено');
+          setSearchError(NOTHING_FOUND_MESSAGE);
           return;
         }
         setMovies(filteredMovies);
-        localStorage.setItem('savedMovies', JSON.stringify(filteredMovies));
+        setToLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES, filteredMovies);
         setSearchError('');
       })
       .catch(() => {
-        setSearchError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+        setSearchError(ERROR_MESSAGE);
       })
       .finally(() => {
-        setIsLoading(false);
+        setIsLoading((prevState) => !prevState);
       });
   };
 
   useEffect(() => {
-    const localSavedMovies = localStorage.getItem('savedMovies');
+    const localSavedMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES);
     if (localSavedMovies) {
-      setMovies(JSON.parse(localSavedMovies));
+      setMovies(localSavedMovies);
     }
     if (query) {
       handleSubmit(query, isShortFilm);
@@ -72,7 +73,8 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
     if (query) {
       handleSubmit(query, newIsShortFilm);
     }
-  }, [query, handleSubmit]);
+  }, [query]);
+
   return (
     <main className="movies">
       <SearchForm
@@ -82,7 +84,8 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
         query={query}
         onFilterChange={handleFilterChangeCallback}
       />
-      {isLoading ? <Preloader />
+      {isLoading
+        ? <Preloader />
         : (
           <MoviesCardList
             movies={movies}
