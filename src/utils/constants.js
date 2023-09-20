@@ -1,3 +1,5 @@
+import avatar from '../images/avatar.jpg';
+
 export const BASE_URL = 'https://api.nomoreparties.co';
 export const API_BACKEND_URL = 'https://api.backend.nomoreparties.co';
 export const DEV_BACKEND_LOCALHOST = 'http://127.0.0.1:3001';
@@ -24,8 +26,63 @@ export const SCREEN_WIDTH = {
   SMALL: 600,
 };
 export const PATHS = {
+  MAIN: '/',
   MOVIES: '/movies',
   SAVED_MOVIES: '/saved-movies',
+  SIGNUP: '/signup',
+  SIGNIN: '/signin',
+  PROFILE: '/profile',
+};
+export const MENU_STYLES = {
+  LINK_LIGHT: 'menu__link_style_light',
+  LINK_DARK: 'menu__link_style_dark',
+  PROFILE_LINK_DARK: 'profile-link_style_dark',
+  PROFILE_LINK_LIGHT: 'profile-link_style_light',
+  OPEN: 'menu__main_type_open',
+  CLOSE: 'menu__main_type_close',
+  MOBILE_ACTIVE: 'menu__link-mobile_active',
+  LINK_ACTIVE: 'menu__link_active',
+};
+export const HAMBURGER_STYLES = {
+  BUTTON_BASE: 'hamburger__button',
+  BUTTON_CLOSE: 'hamburger__button_type_close',
+  LINE_LIGHT: 'hamburger__button-line_style_light',
+  LINE_DARK: 'hamburger__button-line_style_dark',
+};
+export const HEADER_STYLES = {
+  CONTAINER_DARK: 'container_theme_dark',
+  CONTAINER_LIGHT: 'container_theme_light',
+};
+export const LIKE_BUTTON_STYLES = {
+  BASE: 'like-button',
+  LIKED: 'like-button_is-liked',
 };
 export const RESIZE_DEBOUNCE_TIME = 100;
 export const ROUTES_WITH_HEADER_FOOTER = ['/', '/movies', '/saved-movies'];
+export const MOBILE_WIDTH = 800;
+export const USER_INFO = {
+  name: 'Виталий',
+  role: 'Фронтенд-разработчик',
+  age: 30,
+  bio: `Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
+        и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года
+        работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал
+        заниматься фриланс-заказами и ушёл с постоянной работы.`,
+  githubLink: 'https://github.com/rodandr13',
+  avatarLink: avatar,
+};
+export const PORTFOLIO_LINKS = [
+  {
+    title: 'Статичный сайт',
+    url: 'https://github.com/rodandr13/how-to-learn',
+  },
+  {
+    title: 'Адаптивный сайт',
+    url: 'https://github.com/rodandr13/mesto',
+  },
+  {
+    title: 'Одностраничное приложение',
+    url: 'https://github.com/rodandr13/react-mesto-auth',
+  },
+];
+export const PRACTICUM_LINK = 'https://practicum.yandex.ru/';

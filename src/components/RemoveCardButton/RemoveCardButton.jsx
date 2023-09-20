@@ -2,7 +2,8 @@ import React from 'react';
 import './RemoveCardButton.css';
 
 function RemoveCardButton({ handleDeleteMovie, movie }) {
-  const onDeleteMovie = () => {
+  const onDeleteMovie = (e) => {
+    e.preventDefault();
     handleDeleteMovie(movie);
   };
   return (

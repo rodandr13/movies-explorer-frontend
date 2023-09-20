@@ -7,6 +7,7 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 
 function Profile({ handleLogout, handleEditUser, editProfileError }) {
   const { name, email } = useContext(CurrentUserContext);
+  const [isUpdatedSuccessfull, setIsUpdatedSuccessfull] = useState(false);
 
   const {
     values, handleChange, errors, isValid, setValues,
@@ -17,14 +18,15 @@ function Profile({ handleLogout, handleEditUser, editProfileError }) {
   const handleEditProfile = (e) => {
     e.preventDefault();
     setIsEditable(true);
+    setIsUpdatedSuccessfull(false);
   };
 
   const handleSaveProfile = (e) => {
-    console.log('Сработал');
     e.preventDefault();
     handleEditUser(values)
       .then(() => {
         setIsEditable(false);
+        setIsUpdatedSuccessfull(true);
       })
       .catch((error) => {
         console.log(error);
@@ -71,6 +73,7 @@ function Profile({ handleLogout, handleEditUser, editProfileError }) {
               disabled={!isEditable}
               required
             />
+            {isUpdatedSuccessfull && <p className="profile-form__success-message">Информация изменена успешно</p>}
             {errors.email && <span className="profile-form__error">{errors.email}</span>}
           </label>
         </div>

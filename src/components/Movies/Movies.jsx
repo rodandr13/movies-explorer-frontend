@@ -61,17 +61,19 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
 
   useEffect(() => {
     const localSavedMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES);
-    if (localSavedMovies) {
+    if (localSavedMovies && localSavedMovies.length > 0) {
       setMovies(localSavedMovies);
-    }
-    if (query) {
+    } else if (query) {
       handleSubmit(query, isShortFilm);
     }
   }, []);
+
   const handleFilterChangeCallback = useCallback((newIsShortFilm) => {
     setIsShortFilm(newIsShortFilm);
     if (query) {
       handleSubmit(query, newIsShortFilm);
+    } else {
+      setSearchError(ENTER_KEYWORD_MESSAGE);
     }
   }, [query]);
 

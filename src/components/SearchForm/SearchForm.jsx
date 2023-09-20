@@ -9,7 +9,7 @@ function SearchForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(inputQuery);
+    onSubmit(inputQuery, isShortFilm);
   };
   const handleChange = (e) => {
     setInputQuery(e.target.value);

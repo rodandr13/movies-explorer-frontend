@@ -1,18 +1,20 @@
 import React from 'react';
 import './Footer.css';
+import { PRACTICUM_LINK, USER_INFO } from '../../utils/constants';
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer">
       <p className="footer__caption">Учебный проект Яндекс.Практикум х BeatFilm.</p>
-      <p className="footer__copyright">© 2020</p>
+      <p className="footer__copyright">{`© ${currentYear}`}</p>
       <ul className="footer__list">
         <li className="footer__item">
           <a
             className="footer__link"
             target="_blank"
             rel="noreferrer"
-            href="https://practicum.yandex.ru/"
+            href={PRACTICUM_LINK}
           >
             Яндекс.Практикум
           </a>
@@ -22,7 +24,7 @@ function Footer() {
             className="footer__link"
             target="_blank"
             rel="noreferrer"
-            href="https://github.com/rodandr13"
+            href={USER_INFO.githubLink}
           >
             Github
           </a>

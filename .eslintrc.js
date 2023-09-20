@@ -17,6 +17,11 @@ module.exports = {
     'react',
     'import',
   ],
+  overrides: [
+    {
+      files: ['**/*.js', '**/*.jsx'],
+    },
+  ],
   rules: {
     'react/jsx-no-useless-fragment': 'off',
     'react/prop-types': 'off',

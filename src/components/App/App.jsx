@@ -25,16 +25,24 @@ import {
 } from '../../utils/MainApi';
 import LoggedInContext from '../../context/LoggedInContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { BASE_URL, ROUTES_WITH_HEADER_FOOTER, LOCAL_STORAGE_KEYS } from '../../utils/constants';
+import {
+  BASE_URL,
+  ROUTES_WITH_HEADER_FOOTER,
+  LOCAL_STORAGE_KEYS,
+  PATHS,
+} from '../../utils/constants';
+import ContentWithLoading from '../ContentWithLoading/ContentWithLoading';
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [editProfileError, setEditProfileError] = useState('');
-  const showHeader = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname) || (location.pathname === '/profile');
+  const showHeader = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname)
+    || (location.pathname === PATHS.PROFILE);
   const showFooter = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname);
 
   const handleLogin = ({ email, password }) => {
@@ -45,7 +53,7 @@ function App() {
       .then((res) => {
         if (res.token) {
           setLoggedIn(true);
-          navigate('/movies');
+          navigate(PATHS.MOVIES);
         }
       })
       .catch((error) => {
@@ -59,10 +67,7 @@ function App() {
       email,
       password,
     })
-      .then((user) => {
-        console.log(user);
-        return handleLogin({ email, password });
-      })
+      .then(() => handleLogin({ email, password }))
       .catch((error) => {
         console.log(error);
       });
@@ -70,12 +75,11 @@ function App() {
 
   const handleLogout = () => {
     logout()
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         Object.values(LOCAL_STORAGE_KEYS).forEach((key) => localStorage.removeItem(key));
         setSavedMovies([]);
         setLoggedIn(false);
-        navigate('/');
+        navigate(PATHS.MAIN);
       })
       .catch((error) => {
         console.log(error);
@@ -98,7 +102,6 @@ function App() {
     })
       .then((savedMovie) => {
         setSavedMovies([savedMovie, ...savedMovies]);
-        console.log(savedMovies);
       })
       .catch((error) => {
         console.log(error);
@@ -112,8 +115,7 @@ function App() {
       movieToDelete = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
     }
     deleteSavedMovie(movieToDelete._id)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         const updatedSavedMovies = savedMovies.filter(
           (savedMovie) => savedMovie._id !== movieToDelete._id,
         );
@@ -129,15 +131,12 @@ function App() {
       setCurrentUser(user);
     })
     .catch((error) => {
-      console.log(error);
       setEditProfileError(error.message);
       throw error;
     });
-
   useEffect(() => {
     checkAuth()
       .then((res) => {
-        console.log(res);
         if (res.loggedIn) {
           setLoggedIn(true);
           return getUserInfo();
@@ -146,12 +145,13 @@ function App() {
       })
       .then((userInfo) => {
         if (userInfo) {
-          console.log(userInfo);
           setCurrentUser(userInfo);
         }
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
     if (loggedIn) {
       getSavedMovies()
@@ -167,51 +167,53 @@ function App() {
   return (
     <LoggedInContext.Provider value={loggedIn}>
       <CurrentUserContext.Provider value={currentUser}>
-        <div className="page">
-          {showHeader && <Header />}
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route
-              path="/movies"
-              element={(
-                <ProtectedRoute
-                  element={Movies}
-                  savedMovies={savedMovies}
-                  handleDeleteMovie={handleDeleteMovie}
-                  loggedIn={loggedIn}
-                  handleSavedMovie={handleSavedMovie}
-                />
+        <ContentWithLoading isLoading={loading}>
+          <div className="page">
+            {showHeader && <Header />}
+            <Routes>
+              <Route path={PATHS.MAIN} element={<Main />} />
+              <Route
+                path={PATHS.MOVIES}
+                element={(
+                  <ProtectedRoute
+                    element={Movies}
+                    savedMovies={savedMovies}
+                    handleDeleteMovie={handleDeleteMovie}
+                    loggedIn={loggedIn}
+                    handleSavedMovie={handleSavedMovie}
+                  />
               )}
-            />
-            <Route
-              path="/saved-movies"
-              element={(
-                <ProtectedRoute
-                  element={SavedMovies}
-                  movies={savedMovies}
-                  handleDeleteMovie={handleDeleteMovie}
-                  loggedIn={loggedIn}
-                />
+              />
+              <Route
+                path={PATHS.SAVED_MOVIES}
+                element={(
+                  <ProtectedRoute
+                    element={SavedMovies}
+                    movies={savedMovies}
+                    handleDeleteMovie={handleDeleteMovie}
+                    loggedIn={loggedIn}
+                  />
               )}
-            />
-            <Route
-              path="/profile"
-              element={(
-                <ProtectedRoute
-                  element={Profile}
-                  handleLogout={handleLogout}
-                  loggedIn={loggedIn}
-                  handleEditUser={handleEditUser}
-                  editProfileError={editProfileError}
-                />
+              />
+              <Route
+                path={PATHS.PROFILE}
+                element={(
+                  <ProtectedRoute
+                    element={Profile}
+                    handleLogout={handleLogout}
+                    loggedIn={loggedIn}
+                    handleEditUser={handleEditUser}
+                    editProfileError={editProfileError}
+                  />
               )}
-            />
-            <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-            <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          {showFooter && <Footer />}
-        </div>
+              />
+              <Route path={PATHS.SIGNIN} element={<Login handleLogin={handleLogin} />} />
+              <Route path={PATHS.SIGNUP} element={<Register handleRegister={handleRegister} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            {showFooter && <Footer />}
+          </div>
+        </ContentWithLoading>
       </CurrentUserContext.Provider>
     </LoggedInContext.Provider>
   );

@@ -3,9 +3,8 @@ import './MoviesCardList.css';
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import {
-  BASE_URL, PATHS, RESIZE_DEBOUNCE_TIME, SCREEN_CONFIG, SCREEN_WIDTH,
+  PATHS, RESIZE_DEBOUNCE_TIME, SCREEN_CONFIG, SCREEN_WIDTH,
 } from '../../utils/constants';
-import { convertDuration } from '../../utils/utils';
 import useResize from '../../hooks/useResize';
 
 function MoviesCardList({
@@ -58,9 +57,6 @@ function MoviesCardList({
             {displayMovies.map((movie) => (
               <MoviesCard
                 movie={movie}
-                name={movie.nameRU}
-                image={`${isMoviesPage ? BASE_URL : ''}${movie.image.url || movie.image}`}
-                duration={convertDuration(movie.duration)}
                 key={movie.id || movie.movieId}
                 handleSavedMovie={handleSavedMovie}
                 handleDeleteMovie={handleDeleteMovie}
