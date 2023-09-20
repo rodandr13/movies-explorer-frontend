@@ -1,5 +1,7 @@
 ## Учебный проект студента факультета Веб‑разработки.
 
+Ссылка на Pull Request: https://github.com/rodandr13/movies-explorer-frontend/pull/2
+
 Frontend: https://frontend.nomoredomainsrocks.ru
 
 Backend: https://api.backend.nomoreparties.co/
