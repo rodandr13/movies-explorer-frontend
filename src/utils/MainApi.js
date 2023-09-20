@@ -1,10 +1,10 @@
 import { fetchData } from './utils';
-import { DEV_BACKEND_LOCALHOST } from './constants';
+import { API_BACKEND_URL } from './constants';
 
 export const register = ({ name, email, password }) => {
   const endpoint = '/signup';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     method: 'POST',
     data: {
       name,
@@ -18,7 +18,7 @@ export const register = ({ name, email, password }) => {
 export const login = ({ email, password }) => {
   const endpoint = '/signin';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     method: 'POST',
     data: {
       password,
@@ -31,7 +31,7 @@ export const login = ({ email, password }) => {
 export const logout = () => {
   const endpoint = '/signout';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     useCredentials: true,
   });
 };
@@ -39,7 +39,7 @@ export const logout = () => {
 export const getUserInfo = () => {
   const endpoint = '/users/me';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     useCredentials: true,
   });
 };
@@ -47,7 +47,7 @@ export const getUserInfo = () => {
 export const editUserInfo = ({ name, email }) => {
   const endpoint = '/users/me';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     method: 'PATCH',
     useCredentials: true,
     data: {
@@ -60,7 +60,7 @@ export const editUserInfo = ({ name, email }) => {
 export const checkAuth = () => {
   const endpoint = '/check-auth';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     useCredentials: true,
   });
 };
@@ -80,7 +80,7 @@ export const addSavedMovie = ({
 }) => {
   const endpoint = '/movies';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     method: 'POST',
     useCredentials: true,
     data: {
@@ -102,7 +102,7 @@ export const addSavedMovie = ({
 export const getSavedMovies = () => {
   const endpoint = '/movies';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}`,
     useCredentials: true,
   });
 };
@@ -110,7 +110,7 @@ export const getSavedMovies = () => {
 export const deleteSavedMovie = (movieId) => {
   const endpoint = '/movies';
   return fetchData({
-    endpoint: `${DEV_BACKEND_LOCALHOST}${endpoint}/${movieId}`,
+    endpoint: `${API_BACKEND_URL}${endpoint}/${movieId}`,
     method: 'DELETE',
     useCredentials: true,
   });
