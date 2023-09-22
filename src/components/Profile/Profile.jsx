@@ -1,6 +1,5 @@
-import {
-  React, useContext, useEffect, useState,
-} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
 import './Profile.css';
 import useFormValidation from '../../hooks/useFormValidation';
 import CurrentUserContext from '../../context/CurrentUserContext';
@@ -8,12 +7,24 @@ import CurrentUserContext from '../../context/CurrentUserContext';
 function Profile({ handleLogout, handleEditUser, editProfileError }) {
   const { name, email } = useContext(CurrentUserContext);
   const [isUpdatedSuccessfull, setIsUpdatedSuccessfull] = useState(false);
-
+  const [isDataChanged, setIsDataChanged] = useState(false);
   const {
     values, handleChange, errors, isValid, setValues,
-  } = useFormValidation({ name, email }, true);
-
+  } = useFormValidation({ name, email }, true, name, email);
   const [isEditable, setIsEditable] = useState(false);
+
+  useEffect(() => {
+    setValues({ name, email });
+    setIsDataChanged(false);
+  }, [name, email]);
+
+  useEffect(() => {
+    if (values.name !== name || values.email !== email) {
+      setIsDataChanged(true);
+    } else {
+      setIsDataChanged(false);
+    }
+  }, [values.name, values.email, name, email]);
 
   const handleEditProfile = (e) => {
     e.preventDefault();
@@ -23,14 +34,16 @@ function Profile({ handleLogout, handleEditUser, editProfileError }) {
 
   const handleSaveProfile = (e) => {
     e.preventDefault();
-    handleEditUser(values)
-      .then(() => {
-        setIsEditable(false);
-        setIsUpdatedSuccessfull(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isValid && isDataChanged) {
+      handleEditUser(values)
+        .then(() => {
+          setIsEditable(false);
+          setIsUpdatedSuccessfull(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -109,7 +122,7 @@ function Profile({ handleLogout, handleEditUser, editProfileError }) {
               <button
                 className="profile__button profile__link_type_save"
                 type="submit"
-                disabled={!isValid}
+                disabled={!isValid || !isDataChanged}
               >
                 Сохранить
               </button>
