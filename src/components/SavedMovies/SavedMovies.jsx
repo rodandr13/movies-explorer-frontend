@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { filterMovies } from '../../utils/utils';
@@ -22,6 +22,10 @@ function SavedMovies({ movies, handleDeleteMovie }) {
       setSearchError('');
     }
   }, [movies]);
+
+  useEffect(() => {
+    applyFilters(query, isShortFilm);
+  }, [movies, query, isShortFilm, applyFilters]);
 
   const handleSubmit = (submittedQuery, currentIsShortFilm) => {
     if (!submittedQuery.trim()) {
