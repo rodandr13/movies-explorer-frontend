@@ -19,7 +19,7 @@ export const SCREEN_CONFIG = {
   LARGE: { initial: 16, additional: 4 },
   MEDIUM: { initial: 12, additional: 3 },
   SMALL: { initial: 8, additional: 2 },
-  XSMALL: { initial: 5, additional: 1 },
+  XSMALL: { initial: 5, additional: 2 },
 };
 export const SCREEN_WIDTH = {
   LARGE: 1200,
