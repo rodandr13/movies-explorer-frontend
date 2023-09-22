@@ -86,3 +86,6 @@ export const PORTFOLIO_LINKS = [
   },
 ];
 export const PRACTICUM_LINK = 'https://practicum.yandex.ru/';
+
+export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+export const NAME_REGEX = /^[a-zA-Zа-яА-ЯёЁ0-9-_ ]+$/;
