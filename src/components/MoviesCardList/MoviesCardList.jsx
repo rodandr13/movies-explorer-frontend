@@ -32,6 +32,10 @@ function MoviesCardList({
   const [moviesCount, setMoviesCount] = useState(calculateMoviesCount(pageWidth));
 
   useEffect(() => {
+    setMoviesCount(calculateMoviesCount(pageWidth));
+  }, [movies]);
+
+  useEffect(() => {
     if (isSavedMoviesPage) {
       setDisplayMovies(movies);
     } else {
