@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../../styles/auth.css';
 import './Login.css';
 import { Link, Navigate } from 'react-router-dom';
@@ -10,12 +10,14 @@ import Form from '../Form/Form';
 import LoggedInContext from '../../context/LoggedInContext';
 import { PATHS } from '../../utils/constants';
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, loginError, setLoginError }) {
   const isLoggedIn = useContext(LoggedInContext);
   const {
     values, handleChange, errors, isValid,
-  } = useFormValidation();
-
+  } = useFormValidation({ email: '', password: '' });
+  useEffect(() => {
+    setLoginError('');
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(values);
@@ -48,6 +50,7 @@ function Login({ handleLogin }) {
             error={errors.password || ''}
             required
           />
+          <span className="auth__error-message">{loginError}</span>
           <SubmitButton text="Войти" disabled={!isValid} blockClassName="login" />
         </Form>
         <p className="auth__text">

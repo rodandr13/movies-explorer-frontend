@@ -10,7 +10,7 @@ function Profile({ handleLogout, handleEditUser, editProfileError }) {
   const [isDataChanged, setIsDataChanged] = useState(false);
   const {
     values, handleChange, errors, isValid, setValues,
-  } = useFormValidation({ name, email }, true, name, email);
+  } = useFormValidation({ name, email });
   const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {

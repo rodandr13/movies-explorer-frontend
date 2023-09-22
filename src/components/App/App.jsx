@@ -17,7 +17,9 @@ import NotFound from '../NotFound/NotFound';
 import {
   addSavedMovie,
   checkAuth,
-  deleteSavedMovie, editUserInfo, getSavedMovies,
+  deleteSavedMovie,
+  editUserInfo,
+  getSavedMovies,
   getUserInfo,
   login,
   logout,
@@ -27,9 +29,9 @@ import LoggedInContext from '../../context/LoggedInContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {
   BASE_URL,
-  ROUTES_WITH_HEADER_FOOTER,
   LOCAL_STORAGE_KEYS,
   PATHS,
+  ROUTES_WITH_HEADER_FOOTER,
 } from '../../utils/constants';
 import ContentWithLoading from '../ContentWithLoading/ContentWithLoading';
 
@@ -40,6 +42,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+  const [loginError, setLoginError] = useState('');
+  const [registerError, setRegisterError] = useState('');
   const [editProfileError, setEditProfileError] = useState('');
   const showHeader = ROUTES_WITH_HEADER_FOOTER.includes(location.pathname)
     || (location.pathname === PATHS.PROFILE);
@@ -57,6 +61,7 @@ function App() {
         }
       })
       .catch((error) => {
+        setLoginError(error.message);
         console.log(error);
       });
   };
@@ -69,6 +74,7 @@ function App() {
     })
       .then(() => handleLogin({ email, password }))
       .catch((error) => {
+        setRegisterError(error.message);
         console.log(error);
       });
   };
@@ -182,7 +188,7 @@ function App() {
                     loggedIn={loggedIn}
                     handleSavedMovie={handleSavedMovie}
                   />
-              )}
+                )}
               />
               <Route
                 path={PATHS.SAVED_MOVIES}
@@ -193,7 +199,7 @@ function App() {
                     handleDeleteMovie={handleDeleteMovie}
                     loggedIn={loggedIn}
                   />
-              )}
+                )}
               />
               <Route
                 path={PATHS.PROFILE}
@@ -205,10 +211,28 @@ function App() {
                     handleEditUser={handleEditUser}
                     editProfileError={editProfileError}
                   />
-              )}
+                )}
               />
-              <Route path={PATHS.SIGNIN} element={<Login handleLogin={handleLogin} />} />
-              <Route path={PATHS.SIGNUP} element={<Register handleRegister={handleRegister} />} />
+              <Route
+                path={PATHS.SIGNIN}
+                element={(
+                  <Login
+                    handleLogin={handleLogin}
+                    loginError={loginError}
+                    setLoginError={setLoginError}
+                  />
+                )}
+              />
+              <Route
+                path={PATHS.SIGNUP}
+                element={(
+                  <Register
+                    handleRegister={handleRegister}
+                    registerError={registerError}
+                    setRegisterError={setRegisterError}
+                  />
+                )}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
             {showFooter && <Footer />}

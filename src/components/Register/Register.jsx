@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import TextField from '../TextField/TextField';
@@ -8,11 +8,14 @@ import useFormValidation from '../../hooks/useFormValidation';
 import LoggedInContext from '../../context/LoggedInContext';
 import { PATHS } from '../../utils/constants';
 
-function Register({ handleRegister }) {
+function Register({ handleRegister, registerError, setRegisterError }) {
   const isLoggedIn = useContext(LoggedInContext);
   const {
     values, handleChange, errors, isValid,
-  } = useFormValidation();
+  } = useFormValidation({ name: '', email: '', password: '' });
+  useEffect(() => {
+    setRegisterError('');
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     handleRegister(values);
@@ -55,8 +58,10 @@ function Register({ handleRegister }) {
             value={values.password || ''}
             onChange={handleChange}
             error={errors.password || ''}
+            minLength="6"
             required
           />
+          <span className="auth__error-message">{registerError}</span>
           <SubmitButton text="Зарегистрироваться" blockClassName="auth" disabled={!isValid} />
         </Form>
         <p className="auth__text">
