@@ -21,7 +21,7 @@ function MoviesCard({
       <a className="movies-card__link" href={movie.trailerLink} target="_blank" rel="noreferrer">
         <img className="movies-card__image" src={`${isMoviesPage ? BASE_URL : ''}${movie.image.url || movie.image}`} alt="{movie.name}" />
         <div className="movies-card__container">
-          <h3 className="movies-card__title">{movie.name}</h3>
+          <h3 className="movies-card__title">{movie.nameRU}</h3>
           {isSavedMoviesPage
             ? <RemoveCardButton handleDeleteMovie={handleDeleteMovie} movie={movie} />
             : (
