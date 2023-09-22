@@ -7,7 +7,7 @@ import { filterMovies, getFromLocalStorage, setToLocalStorage } from '../../util
 import {
   ENTER_KEYWORD_MESSAGE, ERROR_MESSAGE,
   NOTHING_FOUND_MESSAGE,
-  LOCAL_STORAGE_KEYS, SHORT_FILM_DURATION,
+  LOCAL_STORAGE_KEYS,
 } from '../../utils/constants';
 
 function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
@@ -25,12 +25,26 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
   }, [query, isShortFilm]);
 
   useEffect(() => {
-    let currentMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES, []);
-    if (isShortFilm) {
-      currentMovies = currentMovies.filter((movie) => movie.duration <= SHORT_FILM_DURATION);
+    const allMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.ALL_MOVIES);
+    if (!allMovies) {
+      setIsLoading(true);
+      getMovies()
+        .then((fetchedMovies) => {
+          setToLocalStorage(LOCAL_STORAGE_KEYS.ALL_MOVIES, fetchedMovies);
+          if (query) {
+            const filteredMovies = filterMovies(fetchedMovies, query, isShortFilm);
+            setMovies(filteredMovies);
+            setSearchError(filteredMovies.length ? '' : NOTHING_FOUND_MESSAGE);
+          }
+        })
+        .catch(() => setSearchError(ERROR_MESSAGE))
+        .finally(() => setIsLoading(false));
+    } else if (query) {
+      const filteredMovies = filterMovies(allMovies, query, isShortFilm);
+      setMovies(filteredMovies);
+      setSearchError(filteredMovies.length ? '' : NOTHING_FOUND_MESSAGE);
     }
-    setMovies(currentMovies);
-  }, [isShortFilm]);
+  }, []);
 
   const handleSubmit = (submittedQuery, currentIsShortFilm) => {
     if (!submittedQuery.trim()) {
@@ -38,40 +52,19 @@ function Movies({ handleSavedMovie, handleDeleteMovie, savedMovies }) {
       return;
     }
     setQuery(submittedQuery);
-    setIsLoading((prevState) => !prevState);
-
-    getMovies()
-      .then((allMovies) => {
-        const filteredMovies = filterMovies(allMovies, submittedQuery, currentIsShortFilm);
-        if (filteredMovies.length === 0) {
-          setSearchError(NOTHING_FOUND_MESSAGE);
-          return;
-        }
-        setMovies(filteredMovies);
-        setToLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES, filteredMovies);
-        setSearchError('');
-      })
-      .catch(() => {
-        setSearchError(ERROR_MESSAGE);
-      })
-      .finally(() => {
-        setIsLoading((prevState) => !prevState);
-      });
+    const allMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.ALL_MOVIES, []);
+    const filteredMovies = filterMovies(allMovies, submittedQuery, currentIsShortFilm);
+    setMovies(filteredMovies);
+    setSearchError(filteredMovies.length ? '' : NOTHING_FOUND_MESSAGE);
   };
-
-  useEffect(() => {
-    const localSavedMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.SAVED_MOVIES);
-    if (localSavedMovies && localSavedMovies.length > 0) {
-      setMovies(localSavedMovies);
-    } else if (query) {
-      handleSubmit(query, isShortFilm);
-    }
-  }, []);
 
   const handleFilterChangeCallback = useCallback((newIsShortFilm) => {
     setIsShortFilm(newIsShortFilm);
     if (query) {
-      handleSubmit(query, newIsShortFilm);
+      let currentMovies = getFromLocalStorage(LOCAL_STORAGE_KEYS.ALL_MOVIES, []);
+      currentMovies = filterMovies(currentMovies, query, newIsShortFilm);
+      setMovies(currentMovies);
+      setSearchError(currentMovies.length ? '' : NOTHING_FOUND_MESSAGE);
     } else {
       setSearchError(ENTER_KEYWORD_MESSAGE);
     }

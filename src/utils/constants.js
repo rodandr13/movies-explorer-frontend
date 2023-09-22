@@ -4,6 +4,7 @@ export const BASE_URL = 'https://api.nomoreparties.co';
 export const API_BACKEND_URL = 'https://api.backend.nomoreparties.co';
 export const DEV_BACKEND_LOCALHOST = 'http://127.0.0.1:3001';
 export const LOCAL_STORAGE_KEYS = {
+  ALL_MOVIES: 'allMovies',
   SAVED_IS_SHORT_FILM: 'saved_isShortFilm',
   SAVED_QUERY: 'saved_query',
   IS_SHORT_FILM: 'isShortFilm',
