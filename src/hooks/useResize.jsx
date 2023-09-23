@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useResize() {
+function useResize(debounceTime = 0) {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -8,12 +8,20 @@ function useResize() {
       setWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    let resizeTimer;
+
+    const debouncedHandleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleResize, debounceTime);
+    };
+
+    window.addEventListener('resize', debouncedHandleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+      window.removeEventListener('resize', debouncedHandleResize);
     };
-  }, []);
+  }, [debounceTime]);
 
   return width;
 }

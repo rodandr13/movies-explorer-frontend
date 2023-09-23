@@ -1,31 +1,58 @@
-import { React, useState } from 'react';
-import './Profile.css';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 
-function Profile() {
-  const [name, setName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
+import './Profile.css';
+import useFormValidation from '../../hooks/useFormValidation';
+import CurrentUserContext from '../../context/CurrentUserContext';
+
+function Profile({ handleLogout, handleEditUser, editProfileError }) {
+  const { name, email } = useContext(CurrentUserContext);
+  const [isUpdatedSuccessfull, setIsUpdatedSuccessfull] = useState(false);
+  const [isDataChanged, setIsDataChanged] = useState(false);
+  const {
+    values, handleChange, errors, isValid, setValues,
+  } = useFormValidation({ name, email });
   const [isEditable, setIsEditable] = useState(false);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  useEffect(() => {
+    setValues({ name, email });
+    setIsDataChanged(false);
+  }, [name, email]);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  useEffect(() => {
+    if (values.name !== name || values.email !== email) {
+      setIsDataChanged(true);
+    } else {
+      setIsDataChanged(false);
+    }
+  }, [values.name, values.email, name, email]);
 
-  const handleEditProfile = () => {
+  const handleEditProfile = (e) => {
+    e.preventDefault();
     setIsEditable(true);
+    setIsUpdatedSuccessfull(false);
   };
 
-  const handleSaveProfile = () => {
-    setIsEditable(false);
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
+    if (isValid && isDataChanged) {
+      handleEditUser(values)
+        .then(() => {
+          setIsEditable(false);
+          setIsUpdatedSuccessfull(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
+
+  useEffect(() => {
+    setValues({ name, email });
+  }, []);
   return (
     <main className="profile">
-      <h1 className="profile__title">Привет, Виталий!</h1>
-      <form className="profile-form">
+      <h1 className="profile__title">{`Привет, ${name}!`}</h1>
+      <form className="profile-form" onSubmit={handleSaveProfile}>
         <div className="profile__container">
           <label className="profile-form__label" htmlFor="profile-name">
             <span className="profile-form__text">Имя</span>
@@ -34,33 +61,40 @@ function Profile() {
               type="text"
               id="profile-name"
               placeholder="Имя"
-              value={name}
-              onChange={handleNameChange}
+              name="name"
+              value={values.name || ''}
+              onChange={handleChange}
               minLength="2"
               maxLength="30"
               disabled={!isEditable}
               required
             />
+            {errors.name && <span className="profile-form__error">{errors.name}</span>}
           </label>
           <label className="profile-form__label" htmlFor="profile-email">
             <span className="profile-form__text">E-mail</span>
             <input
               className="profile-form__input"
-              type="text"
+              type="email"
               id="profile-email"
-              value={email}
+              name="email"
+              value={values.email || ''}
               placeholder="E-mail"
-              onChange={handleEmailChange}
+              onChange={handleChange}
               minLength="2"
               maxLength="30"
               disabled={!isEditable}
               required
             />
+            {isUpdatedSuccessfull && <p className="profile-form__success-message">Информация изменена успешно</p>}
+            {errors.email && <span className="profile-form__error">{errors.email}</span>}
           </label>
         </div>
+        {editProfileError && (
         <p className={`profile__error ${isEditable ? 'profile__error_active' : ''}`}>
-          Временное сообщение. При обновлении профиля произошла ошибка.
+          {editProfileError}
         </p>
+        )}
         <ul className="profile__list">
           {!isEditable ? (
             <>
@@ -74,20 +108,21 @@ function Profile() {
                 </button>
               </li>
               <li className="profile__list-item">
-                <Link
-                  to="/"
+                <button
+                  type="button"
+                  onClick={handleLogout}
                   className="profile__link profile__link_type_logout"
                 >
                   Выйти из аккаунта
-                </Link>
+                </button>
               </li>
             </>
           ) : (
             <li className="profile__list-item">
               <button
                 className="profile__button profile__link_type_save"
-                type="button"
-                onClick={handleSaveProfile}
+                type="submit"
+                disabled={!isValid || !isDataChanged}
               >
                 Сохранить
               </button>
